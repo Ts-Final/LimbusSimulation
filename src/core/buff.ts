@@ -1,5 +1,5 @@
 /*
-import {Unit} from "./unit/UnitDataBase.ts";
+import {Unit} from "./unit/UnitBase.ts";
 import {SkillEvent} from "./constants.ts";
 
 function toBuff<name extends string, des extends string>(

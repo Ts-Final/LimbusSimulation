@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UnitEdit from "./components/UnitEdit.vue";
+import UnitEdit from "./components/Edit/UnitEdit.vue";
 import FaultLiesYouIshmael from "./components/FaultLiesYouIshmael.vue";
 </script>
 

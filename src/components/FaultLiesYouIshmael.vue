@@ -16,7 +16,9 @@
     <audio id="fault-4">
       <source src="../assets/fault/Ahab4.ogg">
     </audio>
-
+    <audio id="fault-i-1">
+      <source src="../assets/fault/Captain1.mp3">
+    </audio>
   </div>
 </template>
 

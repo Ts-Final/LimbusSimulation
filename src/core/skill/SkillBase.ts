@@ -1,84 +1,12 @@
-import {Affinity} from "../constants.ts";
-
-/*
-
-export class SkillBase {
-  ATKLevel: (lv: number) => number
-  ATKWeight: number
-  coins: number
-  coinPower: number
-  // coinAffects: [SkillEvent, UnitTargetFunction][]
-  // skillAffects: [SkillEvent, UnitTargetFunction][]
-  BasePower: number
-  affinity: Affinity
-
-  constructor(
-    ATKLevel: (lv: number) => number,
-    affinity: Affinity,
-    coins: number,
-    coinPower: number,
-    BasePower: number,
-    // coinAffects: [SkillEvent, UnitTargetFunction][],
-    // skillAffects: [SkillEvent, UnitTargetFunction][],
-    ATKWeight = 1,
-  ) {
-    this.ATKLevel = ATKLevel
-    this.affinity = affinity
-    this.coins = coins
-    this.coinPower = coinPower
-    this.BasePower = BasePower
-    this.ATKWeight = ATKWeight
-    // this.coinAffects = coinAffects
-    // this.skillAffects = skillAffects
-  }
-
-  toSkill(unit: Unit) {
-    return new Skill(
-      this.ATKLevel(unit.level),
-      this.affinity,
-      this.coins,
-      this.coinPower,
-      this.BasePower,
-      // this.coinAffects,
-      // this.skillAffects,
-      this.ATKWeight,
-    )
-  }
-}
-
-export class Skill {
-  ATKLevel: number
-  ATKWeight: number
-  coins: number
-  coinPower: number
-  // coinAffects: [SkillEvent, UnitTargetFunction][]
-  // skillAffects: [SkillEvent, UnitTargetFunction][]
-  BasePower: number
-  affinity: Affinity
-
-  constructor(
-    ATKLevel: number,
-    affinity: Affinity,
-    coins: number,
-    coinPower: number,
-    BasePower: number,
-    // coinAffects: [SkillEvent, UnitTargetFunction][],
-    // skillAffects: [SkillEvent, UnitTargetFunction][],
-    ATKWeight = 1,
-  ) {
-    this.ATKLevel = ATKLevel
-    this.affinity = affinity
-    this.coins = coins
-    this.coinPower = coinPower
-    this.BasePower = BasePower
-    this.ATKWeight = ATKWeight
-    // this.coinAffects = coinAffects
-    // this.skillAffects = skillAffects
-  }
-}*/
+import {Affinity, AttackType} from "../constants.ts";
+import {Ref, ref, watch} from "vue";
+import {ui} from "../ui.ts";
 
 export namespace Skill {
   export interface dataType {
+    name: string
+    count: number
+    ATKType: AttackType
     ATKLevel: number
     ATKWeight: number
     coins: number
@@ -87,8 +15,11 @@ export namespace Skill {
     affinity: Affinity
   }
 
-  /*function init(): Skill.dataType {
+  export function init(): Skill.dataType {
     return {
+      name: "执着鱼叉",
+      count: 1,
+      ATKType: "Pierce",
       ATKLevel: 3,
       ATKWeight: 1,
       coins: 4,
@@ -96,5 +27,45 @@ export namespace Skill {
       BasePower: 4,
       affinity: "Wrath",
     }
-  }*/
+  }
+
+  export const Editor: {
+    [key in keyof Skill.dataType]: Ref<Skill.dataType[key]>
+  } & {
+    assign(data: Skill.dataType): void
+  } = {
+    count: ref(1),
+    name: ref("执着鱼叉"),
+    ATKType: ref("Pierce"),
+    ATKLevel: ref(3),
+    ATKWeight: ref(1),
+    coins: ref(4),
+    coinPower: ref(3),
+    BasePower: ref(4),
+    affinity: ref("Wrath"),
+
+    assign(data: Skill.dataType) {
+      Editor.name.value = data.name
+      Editor.count.value = data.count
+      Editor.ATKType.value = data.ATKType
+      Editor.ATKLevel.value = data.ATKLevel
+      Editor.ATKWeight.value = data.ATKWeight
+      Editor.coins.value = data.coins
+      Editor.coinPower.value = data.coinPower
+      Editor.BasePower.value = data.BasePower
+      Editor.affinity.value = data.affinity
+
+    }
+  }
+  watch(Editor.count, (v) => ui.skill.current.value.count = v)
+  watch(Editor.name, (v) => ui.skill.current.value.name = v)
+  watch(Editor.ATKType, (v) => ui.skill.current.value.ATKType = v)
+  watch(Editor.ATKLevel, (v) => ui.skill.current.value.ATKLevel = v)
+  watch(Editor.ATKWeight, (v) => ui.skill.current.value.ATKWeight = v)
+  watch(Editor.coins, (v) => ui.skill.current.value.coins = v)
+  watch(Editor.coinPower, (v) => ui.skill.current.value.coinPower = v)
+  watch(Editor.BasePower, (v) => ui.skill.current.value.BasePower = v)
+  watch(Editor.affinity, (v) => ui.skill.current.value.affinity = v)
+
+
 }

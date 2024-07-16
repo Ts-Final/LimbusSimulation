@@ -1,9 +1,10 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import {Storage} from "./core/Storage.ts";
+import {GameStorage} from "./core/GameStorage.ts";
 import {notify} from "./core/utils/notify.ts";
 import {ui} from "./core/ui.ts";
+import unit = ui.unit;
 
 createApp(App).mount('#app')
 
@@ -16,16 +17,21 @@ declare global {
   }
 }
 
-window.storage = Storage
+window.storage = GameStorage
 window.notify = notify
+window.unit = unit
 
-setInterval(Storage.save, 10e3)
+setInterval(GameStorage.save, 10e3)
 document.addEventListener("keydown", function (ev) {
   if (ev.code == "KeyS" && ev.ctrlKey) {
     ev.preventDefault()
-    Storage.save()
+    GameStorage.save()
   }
 })
+window.onerror = function() {
+  GameStorage.fuck()
+}
 
-Storage.load()
+GameStorage.load()
 ui.display.value = true
+ui.refresh()

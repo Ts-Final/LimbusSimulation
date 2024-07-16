@@ -85,3 +85,8 @@ export const WinRate = [
   "Defense",
 ]
 export type WinRate = typeof WinRate[number]
+
+export const RiskLevel = [
+  "ZAYIN","TETH", "HE", "WAW", "ALEPH", "TARK"
+] as const
+export type RiskLevel = typeof RiskLevel[number]

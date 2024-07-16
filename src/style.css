@@ -8,31 +8,39 @@
   width: 100%;
   overflow: hidden;
 }
+
 * {
   color: #b8dcee;
 }
+
 #app {
   width: 100%;
   height: 100%;
   margin: 0;
 }
+
 input {
   background-color: transparent;
   border: none;
   padding: 0;
   margin: 0;
+  font-size: 1rem;
 }
+
 table input {
   width: 100%;
 }
+
 .border-1bot {
   border-bottom: 1px solid #fff;
 }
+
 :focus-visible {
   outline: none;
   animation: infinite alternate a-border-bottom-outline 0.5s;
   animation-timing-function: steps(2, jump-none);
 }
+
 @keyframes a-border-bottom-outline {
   100% {
     border-bottom: 2px solid #ffffff;
@@ -41,6 +49,7 @@ table input {
     border-bottom: 2px solid transparent;
   }
 }
+
 /* Used for numbers */
 @font-face {
   font-family: "ExcelsiorSans";
@@ -48,12 +57,29 @@ table input {
   font-weight: normal;
   font-style: normal;
 }
+
 /* Used for character/names */
 @font-face {
   font-family: "Mikodacs";
   src: url("./assets/Mikodacs.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
+}
+
+table {
+  background-color: transparent;
+  border-right: 1px solid gray;
+  border-top: 1px solid gray;
+
+}
+
+table td {
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  color: #b8dcee;
+  width: 10%;
 }
 
 /*notify abouts*/
@@ -103,6 +129,7 @@ table input {
     transform: translateX(0)
   }
 }
+
 .notify-a-leave {
   animation: notify-leave 0.3s ease-out;
 }
@@ -121,4 +148,80 @@ table input {
     transform: translateX(125%);
   }
 }
+
 /*notify end*/
+
+.none-select {
+  user-select: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.Wrath {
+  background-color: rgb(107, 10, 9);
+}
+
+.Wrath:hover {
+  background-color: rgb(155, 11, 11);
+}
+
+.Envy {
+  background-color: rgb(49, 3, 69);
+}
+
+.Envy:hover {
+  background-color: rgb(70, 2, 102);
+}
+
+.Pride {
+  background-color: rgb(16, 43, 69);
+}
+
+.Pride:hover {
+  background-color: rgb(19, 59, 100);
+}
+
+.Gloom {
+  background-color: rgb(15, 68, 82);
+}
+
+.Gloom:hover {
+  background-color: rgb(19, 100, 119);
+}
+
+.Gluttony {
+  background-color: rgb(73, 104, 20);
+}
+
+.Gluttony:hover {
+  background-color: rgb(105, 151, 28);
+}
+
+.Sloth {
+  background-color: rgb(124, 93, 30);
+}
+
+.Sloth:hover {
+  background-color: rgb(182, 137, 44);
+}
+
+.Lust {
+  background-color: rgb(118, 52, 20);
+}
+
+.Lust:hover {
+  background-color: rgb(174, 76, 28);
+}
+
+.affinity-button {
+  cursor: pointer;
+  user-select: none;
+  box-shadow: #080604 0 0 5px 5px inset;
+  line-height: 2rem;
+  transition: all 0.2s linear;
+}
+.affinity-button:hover {
+  box-shadow: #080604 0 0 5px 3px inset;
+}
