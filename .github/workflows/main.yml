@@ -44,16 +44,14 @@ jobs:
         with:
           node-version: '20'
 
-      # 安装 pnpm
-      - name: Install pnpm
-        run: npm install pnpm -g
 
       # 安装依赖
       - name: Install dependencies
-        run: pnpm i
+        run: npm install
+
       # 打包
       - name: Build application 🔧
-        run: pnpm run build:prod
+        run: npm run build
 
       # 部署 https://github.com/JamesIves/github-pages-deploy-action
       - name: Deploy 🚀
