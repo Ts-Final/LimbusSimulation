@@ -13,3 +13,7 @@ export function range(end: number) {
   }
   return arr
 }
+
+export function isNumberLike(str: string) {
+  return str.match(/^[0-9]+\.?[0-9]+$/)?.length == 1
+}

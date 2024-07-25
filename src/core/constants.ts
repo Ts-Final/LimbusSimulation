@@ -51,11 +51,11 @@ export type Affinity = typeof Affinities[number]
 
 export const AttackTypes = [
   // 穿刺
-  "Pierce",
+  "pierce",
   // 打击
-  "Blunt",
+  "blunt",
   // 斩击
-  "Slash",
+  "slash",
 ] as const
 export type AttackType = typeof AttackTypes[number]
 

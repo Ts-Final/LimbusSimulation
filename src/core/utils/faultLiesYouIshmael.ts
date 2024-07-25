@@ -14,7 +14,7 @@ export const FaultLiesYouIshmael = {
       notify.normal("都是你的错！经理！", 2000)
     }
   },
-  FuckYouDante(msg?:string) {
+  FuckYouDante(msg?: string) {
     const audio = document.getElementById("fault-i-1") as HTMLAudioElement
     if (audio) {
       audio.play()

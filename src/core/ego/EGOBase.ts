@@ -1,29 +1,20 @@
 /*Extermination of Geometrical Organ */
 
-import {Affinities, Affinity, RiskLevel} from "../constants.ts";
-import {Ref, ref, watch} from "vue";
-import {ui} from "../ui.ts";
+import {Affinities, Affinity, AttackType, RiskLevel} from "../constants.ts";
+import {computed, Ref, ref, watch} from "vue";
 
-export namespace EGO {
-  export interface dataType {
-    name: string
-    affinity: Affinity
-    ATKLevel: number
-    ATKWeight: number
-    affinityResistance: Record<Affinity, number>
-    Resource: Record<Affinity, number>
-    riskLevel: RiskLevel
-    coin: number
-    coinPower: number
-    basePower: number
-  }
+export const EGO = (function () {
+  const storage = [init()]
+  const viewing = ref(0)
+  const current = computed(() => storage[viewing.value])
 
-  export function init(): EGO.dataType {
+  function init(): EGO.dataType {
     return {
       name: "捕鲸叉",
       affinity: "Gloom",
       ATKLevel: -4,
       ATKWeight: 1,
+      RiskLevel: "ZAYIN",
       affinityResistance: {
         Wrath: 1,
         Lust: 2,
@@ -42,14 +33,14 @@ export namespace EGO {
         Pride: 0,
         Envy: 0,
       },
-      riskLevel: "ZAYIN",
       coin: 1,
       coinPower: 4,
       basePower: 19,
+      ATKType: "blunt"
     }
   }
 
-  export const Editor = {
+  const Editor = {
     name: ref(""),
     affinity: ref("Gloom") as Ref<Affinity>,
     ATKLevel: ref(-4),
@@ -72,10 +63,11 @@ export namespace EGO {
       Pride: ref(0),
       Envy: ref(0),
     },
-    riskLevel: ref("ZAYIN") as Ref<RiskLevel>,
     coin: ref(1),
     coinPower: ref(4),
     basePower: ref(19),
+    ATKType: ref("blunt") as Ref<AttackType>,
+    RiskLevel:ref("ZAYIN") as Ref<RiskLevel>,
 
     assign(ego: EGO.dataType) {
       Editor.name.value = ego.name
@@ -90,26 +82,56 @@ export namespace EGO {
         Editor.Resource[(key as Affinity)].value
           = ego.Resource[(key as Affinity)]
       }
-      Editor.riskLevel.value = ego.riskLevel
       Editor.coin.value = ego.coin
       Editor.coinPower.value = ego.coinPower
       Editor.basePower.value = ego.basePower
-
+      Editor.ATKType.value = ego.ATKType
     }
   }
-  watch(Editor.name, (v) => ui.ego.current.value.name = v)
-  watch(Editor.affinity, (v) => ui.ego.current.value.affinity = v)
-  watch(Editor.ATKLevel, (v) => ui.ego.current.value.ATKLevel = v)
-  watch(Editor.ATKWeight, (v) => ui.ego.current.value.ATKWeight = v)
-  watch(Editor.riskLevel, (v) => ui.ego.current.value.riskLevel = v)
-  watch(Editor.coin, (v) => ui.ego.current.value.coin = v)
-  watch(Editor.coinPower, (v) => ui.ego.current.value.coinPower = v)
-  watch(Editor.basePower, (v) => ui.ego.current.value.basePower = v)
+
+  watch(Editor.name, (v) => current.value.name = v)
+  watch(Editor.affinity, (v) => current.value.affinity = v)
+  watch(Editor.ATKLevel, (v) => current.value.ATKLevel = v)
+  watch(Editor.ATKWeight, (v) => current.value.ATKWeight = v)
+  watch(Editor.coin, (v) => current.value.coin = v)
+  watch(Editor.coinPower, (v) => current.value.coinPower = v)
+  watch(Editor.basePower, (v) => current.value.basePower = v)
+  watch(Editor.ATKType, (v) => current.value.ATKType = v)
   for (const affinity of Affinities) {
     watch(Editor.affinityResistance[affinity],
-      (v) => ui.ego.current.value.affinityResistance[affinity] = v)
+      (v) => current.value.affinityResistance[affinity] = v)
     watch(Editor.Resource[affinity],
-      (v) => ui.ego.current.value.Resource[affinity] = v)
+      (v) => current.value.Resource[affinity] = v)
+  }
+
+  function index(v: number) {
+    return storage[v]
+  }
+
+  return {
+    storage,
+    viewing,
+    current,
+    index,
+    Editor,
+    init,
+  }
+})()
+
+export namespace EGO {
+
+  export interface dataType {
+    name: string
+    affinity: Affinity
+    ATKLevel: number
+    ATKWeight: number
+    affinityResistance: Record<Affinity, number>
+    Resource: Record<Affinity, number>
+    coin: number
+    coinPower: number
+    basePower: number
+    ATKType: AttackType
+    RiskLevel:RiskLevel
   }
 
 
