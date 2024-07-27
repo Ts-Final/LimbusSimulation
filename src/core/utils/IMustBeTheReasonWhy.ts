@@ -17,7 +17,7 @@ export default {
   max: IMustBeTheReasonWhy.length - 1,
   start() {
     document.title = IMustBeTheReasonWhy[this.index]
-    setInterval(this.next.bind(this), 300)
+    setInterval(this.next.bind(this), 500)
   },
   next() {
     if (this.index < this.max) {
@@ -26,5 +26,7 @@ export default {
       this.index = 0
     }
     document.title = IMustBeTheReasonWhy[this.index]
+    const QA = document.getElementById("patches-of-violet")
+    if (QA) QA.innerText = IMustBeTheReasonWhy[this.index]
   }
 }

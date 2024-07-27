@@ -6,25 +6,34 @@ import UnitGeneral from "./UnitGeneral.vue";
 import UnitBase from "./UnitBase.vue";
 import UnitSkill from "./UnitSkill.vue";
 import UnitList from "./UnitList.vue";
+import UnitEgo from "./UnitEgo.vue";
 
 const viewing = ref("list")
 </script>
 
 <template>
   <div class="UT-wrapper">
-    <div class="UT-Ishmael" @click="FaultLiesYouIshmael.play()"/>
+    <div class="UT-Ishmael"
+         @contextmenu="e=>{FaultLiesYouIshmael.FuckYouDante(); e.preventDefault()}"
+         @click="FaultLiesYouIshmael.play()"/>
     <div class="UT-right">
-      <div class="ET-chooser">
-        <div @click="viewing = 'list'">人格列表</div>
-        <div @click="viewing = 'general'">总览</div>
-        <div @click="viewing = 'base'">基础数值</div>
-        <div @click="viewing = 'skill'">技能</div>
-        <div @click="viewing = 'ego'">E!G!O!</div>
+      <div class="UT-chooser">
+        <div @click="viewing = 'list'"
+             :class="viewing == 'list' ? 'UT-chosen':''">人格列表</div>
+        <div @click="viewing = 'general'"
+             :class="viewing == 'general' ? 'UT-chosen':''">总览</div>
+        <div @click="viewing = 'base'"
+             :class="viewing == 'base' ? 'UT-chosen':''">基础数值</div>
+        <div @click="viewing = 'skill'"
+             :class="viewing == 'skill' ? 'UT-chosen':''">技能</div>
+        <div @click="viewing = 'ego'"
+             :class="viewing == 'ego' ? 'uT-chosen':''">E!G!O!</div>
       </div>
       <UnitList v-if="viewing == 'list'"/>
       <UnitGeneral v-else-if="viewing == 'general'"/>
       <UnitBase v-else-if="viewing == 'base'"/>
       <UnitSkill v-else-if="viewing == 'skill'"/>
+      <UnitEgo v-else></UnitEgo>
     </div>
   </div>
 </template>
@@ -61,7 +70,7 @@ const viewing = ref("list")
   padding-top: 75px;
 }
 
-.ET-chooser {
+.UT-chooser {
   width: 100%;
   position: absolute;
   top: 3px;
@@ -72,7 +81,7 @@ const viewing = ref("list")
   padding-left: 5px;
 }
 
-.ET-chooser > div {
+.UT-chooser > div {
   width: 160px;
   height: 45px;
 
@@ -91,9 +100,15 @@ const viewing = ref("list")
   user-select: none;
 }
 
-.ET-chooser > div:hover {
+.UT-chooser > div:hover {
   border-color: rgb(249, 197, 1);
   border-width: 3px;
   background-color: rgb(63, 26, 3);
+}
+
+.UT-chosen {
+  border-color: rgb(249, 197, 1) !important;
+  border-width: 3px;
+  background-color: rgb(63, 26, 3) !important;
 }
 </style>

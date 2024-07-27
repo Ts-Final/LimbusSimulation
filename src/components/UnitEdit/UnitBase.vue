@@ -6,7 +6,7 @@ const editor = Unit.Editor
 </script>
 
 <template>
-  <table cellspacing="0" style="margin: 4px;">
+  <table style="margin: 4px;">
     <tr>
       <td>
         角色

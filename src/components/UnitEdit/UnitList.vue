@@ -23,18 +23,18 @@ function EGOResources(data: Unit.dataType) {
   return r
 }
 
-function deleteUnit() {
+function deleteUnit(index:number) {
   if (Unit.storage.length == 1) {
-    alert("不是哥们，别删了")
+    alert("至少要保留一个单位。")
     return;
   }
-  if (!confirm("你真要删掉")) return
+  if (!confirm("删掉吗？")) return
 
-  const current = Unit.viewing.value
-  Unit.viewing.value = 0
+  Unit.viewing.value = -1
   Unit.Editor.assign(Unit.current.value)
   Skill.Editor.assign(Skill.current.value)
-  Unit.storage.splice(current, 1)
+  Unit.storage.splice(index, 1)
+  Unit.viewing.value = 0
   fuck()
 }
 
@@ -78,7 +78,7 @@ function fuck() {
       <td class="UL-button" @click="Unit.viewing.value = Number(index)">
         编辑
       </td>
-      <td class="UL-delete" @click="deleteUnit()">
+      <td class="UL-delete" @click="deleteUnit(Number(index))">
         删除
       </td>
     </tr>
@@ -87,7 +87,7 @@ function fuck() {
         新增
       </td>
       <td colspan="5">
-        你说的对，但是以实玛利船长是一款
+        这里是空的。
       </td>
     </tr>
   </table>

@@ -1,13 +1,21 @@
 import {Skill} from "../skill/SkillBase.ts";
 import {AttackType, RiskLevel} from "../constants.ts";
-import {computed, ref, watch} from "vue";
+import {computed, Ref, ref, watch} from "vue";
 import {EGO} from "../ego/EGOBase.ts";
 import {isNumberLike} from "../utils/utils.ts";
+import {notify} from "../utils/notify.ts";
 
 export const Unit = (function () {
   const storage = [init()]
   const viewing = ref(0)
-  const current = computed(() => storage[viewing.value])
+  const current = computed(
+    () => {
+      if (viewing.value >= 0) {
+        return storage[viewing.value]
+      } else {
+        return storage[0]
+      }
+    })
   watch(viewing, (v) => Editor.assign(storage[v]))
 
   const HP = computed(() => {
@@ -24,22 +32,25 @@ export const Unit = (function () {
   }
 
   function egos(unit: Unit.dataType) {
-    const r: { [key in keyof Unit.dataType["EGO"]]: EGO.dataType } = {ZAYIN: EGO.index(unit.EGO.ZAYIN)}
-
-    if (unit.EGO.TETH) {
+    const r: Record<string, EGO.dataType> = {}
+    if (unit.EGO.ZAYIN != undefined) {
+      r.ZAYIN = EGO.index(unit.EGO.ZAYIN)
+    } else {
+      unit.EGO.ZAYIN = 0
+      r.ZAYIN = EGO.index(0)
+      notify.error(unit.name + "没有Z级EGO，已将该单位Z级EGO替换为初始EGO。",1000)
+    }
+    if (unit.EGO.TETH != undefined) {
       r.TETH = EGO.index(unit.EGO.TETH)
     }
-    if (unit.EGO.HE) {
+    if (unit.EGO.HE != undefined) {
       r.HE = EGO.index(unit.EGO.HE)
     }
-    if (unit.EGO.WAW) {
+    if (unit.EGO.WAW != undefined) {
       r.WAW = EGO.index(unit.EGO.WAW)
     }
-    if (unit.EGO.ALEPH) {
+    if (unit.EGO.ALEPH != undefined) {
       r.ALEPH = EGO.index(unit.EGO.ALEPH)
-    }
-    if (unit.EGO.TARK) {
-      r.TARK = EGO.index(unit.EGO.TARK)
     }
     return r
 
@@ -62,7 +73,14 @@ export const Unit = (function () {
       },
       stagger: "0.75 0.4 0.2",
       skills: [Skill.init()],
-      EGO: {ZAYIN: 0},
+      EGO: {
+        ZAYIN: 0,
+        TETH: undefined,
+        HE: undefined,
+        WAW: undefined,
+        ALEPH: undefined,
+        TARK: undefined,
+      },
     }
   }
 
@@ -82,7 +100,14 @@ export const Unit = (function () {
     },
     stagger: ref(""),
     skills: ref([] as Skill.dataType[]),
-    EGO: ref({ZAYIN: 0} as Partial<Record<RiskLevel, number>> & { ZAYIN: number }),
+    EGO: {
+      ZAYIN: ref(0),
+      TETH: ref(undefined),
+      HE: ref(undefined),
+      WAW: ref(undefined),
+      ALEPH: ref(undefined),
+      TARK: ref(undefined),
+    } as Record<RiskLevel, Ref<number | undefined>>,
 
     assign(unit: Unit.dataType) {
       // so we have this fuck until there's a more beautiful way to assign it.
@@ -100,7 +125,14 @@ export const Unit = (function () {
       Editor.attackResistance.slash.value = unit.attackResistance.slash
       Editor.stagger.value = unit.stagger
       Editor.skills.value = unit.skills
-      Editor.EGO.value = unit.EGO
+
+      Editor.EGO.ZAYIN.value = unit.EGO.ZAYIN
+      if (unit.EGO.TETH) Editor.EGO.TETH.value = unit.EGO.TETH
+      if (unit.EGO.HE) Editor.EGO.HE.value = unit.EGO.HE
+      if (unit.EGO.WAW) Editor.EGO.WAW.value = unit.EGO.WAW
+      if (unit.EGO.ALEPH) Editor.EGO.ALEPH.value = unit.EGO.ALEPH
+      if (unit.EGO.TARK) Editor.EGO.TARK.value = unit.EGO.TARK
+
     }
   }
 
@@ -129,7 +161,13 @@ export const Unit = (function () {
         .join(" ")
   })
   watch(Editor.skills, (v) => current.value.skills = v)
-  watch(Editor.EGO, (v) => current.value.EGO = v)
+  watch(Editor.EGO.ZAYIN, v => current.value.EGO.ZAYIN = v ?? 0)
+  watch(Editor.EGO.TETH, v => current.value.EGO.TETH = v)
+  watch(Editor.EGO.HE, v => current.value.EGO.HE = v)
+  watch(Editor.EGO.WAW, v => current.value.EGO.WAW = v)
+  watch(Editor.EGO.ALEPH, v => current.value.EGO.ALEPH = v)
+  watch(Editor.EGO.TARK, v => current.value.EGO.TARK = v)
+
 
   return {
     storage,
@@ -159,6 +197,6 @@ export namespace Unit {
     attackResistance: Record<AttackType, number>
     stagger: string
     skills: Skill.dataType[]
-    EGO: Partial<Record<RiskLevel, number>> & { ZAYIN: number }
+    EGO: Record<RiskLevel, number | undefined>
   }
 }

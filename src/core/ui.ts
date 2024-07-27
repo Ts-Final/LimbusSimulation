@@ -11,6 +11,6 @@ export function TabName(tab: tabs) {
     case "unit":
       return "人格编辑"
     case "ego":
-      return "E!G!O!"
+      return "EGO编辑"
   }
 }

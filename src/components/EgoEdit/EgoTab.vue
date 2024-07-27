@@ -1,6 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
+import EgoGeneral from "./EgoGeneral.vue";
+import EgoAwakening from "./EgoAwakening.vue";
+import EgoCorrosion from "./EgoCorrosion.vue";
+import EgoList from "./EgoList.vue";
+import EgoBase from "./EgoBase.vue";
+
 const rotating = ref(false)
+
 function rotate() {
   if (rotating.value) {
     rotating.value = false
@@ -16,13 +23,23 @@ const viewing = ref('list')
 
 <template>
   <div class="ET-wrapper">
-    <div @click="rotate"
-         class="ET-Snagharpoon" :class="rotating ? 'ET-Snagharpoon-rotating':''"/>
+    <div :class="rotating ? 'ET-Snagharpoon-rotating':''"
+         class="ET-Snagharpoon" @click="rotate"/>
     <div class="ET-right">
       <div class="ET-chooser">
-        <div @click="viewing = 'list'">EGO列表</div>
-        <div @click="viewing = 'edit'">编辑</div>
+        <div :class="viewing == 'list'? 'ET-chosen' :''" @click="viewing = 'list'">EGO列表</div>
+        <div :class="viewing == 'general'? 'ET-chosen' :''" @click="viewing = 'general'">总览</div>
+        <div :class="viewing == 'base'? 'ET-chosen' :''" @click="viewing = 'base'">基础信息</div>
+        <div :class="viewing == 'awakening'? 'ET-chosen' :''" @click="viewing = 'awakening'">觉醒</div>
+        <div :class="viewing == 'corrosion'? 'ET-chosen' :''" @click="viewing = 'corrosion'">侵蚀</div>
+
       </div>
+      <EgoList v-if="viewing == 'list'"/>
+      <EgoBase v-if="viewing == 'base'"/>
+      <EgoGeneral v-if="viewing == 'general'"/>
+      <EgoAwakening v-if="viewing == 'awakening'"/>
+      <EgoCorrosion v-if="viewing == 'corrosion'"/>
+
     </div>
   </div>
 </template>
@@ -73,16 +90,16 @@ const viewing = ref('list')
     transform: rotate3d(0, 1, 0, 360deg) translateY(-20px);
   }
 }
+
 .ET-right {
   position: absolute;
   right: 0;
   width: 60%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
   z-index: 2;
   padding-top: 75px;
 }
+
 .ET-chooser {
   width: 100%;
   position: absolute;
@@ -98,10 +115,10 @@ const viewing = ref('list')
   width: 160px;
   height: 45px;
 
-  border: rgb(90,0,0) 3px solid;
+  border: rgb(90, 0, 0) 3px solid;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
-  background-color: rgb(15,0,0);
+  background-color: rgb(15, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,6 +133,12 @@ const viewing = ref('list')
 .ET-chooser > div:hover {
   border-color: rgb(249, 197, 1);
   border-width: 3px;
-  background-color: rgb(64,20,0);
+  background-color: rgb(64, 20, 0);
+}
+
+.ET-chosen {
+  border-color: rgb(249, 197, 1) !important;
+  border-width: 3px;
+  background-color: rgb(63, 26, 3) !important;
 }
 </style>

@@ -90,3 +90,7 @@ export const RiskLevel = [
   "ZAYIN","TETH", "HE", "WAW", "ALEPH", "TARK"
 ] as const
 export type RiskLevel = typeof RiskLevel[number]
+export function parseRiskLevel(rl:RiskLevel) {
+  if (rl == "TARK") return "T.ARK."
+  return rl
+}

@@ -26,6 +26,7 @@ input {
   margin: 0;
   font-size: 1rem;
   border-bottom: 2px transparent solid;
+  vertical-align: center;
 }
 
 table input {
@@ -38,16 +39,7 @@ table input {
 
 :focus-visible {
   outline: none;
-  animation: infinite alternate a-border-bottom-outline 0.8s linear;
-}
-
-@keyframes a-border-bottom-outline {
-  100% {
-    border-bottom: 2px solid #ffffff;
-  }
-  0% {
-    border-bottom: 2px solid transparent;
-  }
+  /*border: none;*/
 }
 
 /* Used for numbers */
@@ -57,7 +49,9 @@ table input {
   font-weight: normal;
   font-style: normal;
 }
-
+.excelsiorSans {
+  font-family: ExcelsiorSans, sans-serif;
+}
 /* Used for character/names */
 @font-face {
   font-family: "Mikodacs";
@@ -230,14 +224,57 @@ table td {
 .text-center {
   text-align: center;
 }
+
 img {
   vertical-align: middle;
 }
+
 .black-out {
   color: black;
   transition: all 0.2s linear;
   background-color: black;
 }
+
 .black-out:hover {
   color: white;
+}
+
+.res-endure {
+  color: rgb(203, 203, 203);
+}
+
+.res-fatal {
+  color: rgb(254, 66, 66);
+}
+
+.res-normal {
+  color: rgb(227, 193, 144)
+}
+
+.res-ineff {
+  color: rgb(122, 122, 121)
+}
+
+.res-immune {
+  color: #b8dcee;
+}
+
+.res-weak {
+  color: rgb(254, 143, 143)
+}
+
+table {
+  border-spacing: 0;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pl-2 {
+  padding-left: 2px;
+}
+.pl-4 {
+  padding-left: 4px;
 }

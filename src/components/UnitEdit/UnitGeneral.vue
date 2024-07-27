@@ -88,16 +88,24 @@ const rarityWidth = computed(() => unit.value.rarity * 12 + "px")
         </td>
         <td>
           <AffinityImg :affinity="ego.affinity" style="height: 20px;width: 20px;"/>
+          <AtkTypeImg :atk-type="ego.ATKType" style="width: 30px;"/>
           {{ ego.name }}
         </td>
+        <template v-if="ego.corrosion.has">
+          <td>
+            {{ ego.awakening.basePower }}{{ ego.awakening.coinPower.toSigned() }}&times;{{ ego.awakening.coin }}
+          </td>
+          <td>
+            {{ ego.corrosion.basePower }}{{ ego.corrosion.coinPower.toSigned() }}&times;{{ ego.corrosion.ATKWeight }}
+          </td>
+        </template>
+        <template v-else>
+          <td colspan="2">
+            {{ ego.awakening.basePower }}{{ ego.awakening.coinPower.toSigned() }}&times;{{ ego.awakening.coin }}
+          </td>
+        </template>
         <td>
-          <AtkTypeImg :atk-type="ego.ATKType" style="width: 30px;"/>
-        </td>
-        <td>
-          {{ ego.basePower }}+{{ ego.coinPower }}&times;{{ ego.coin }}
-        </td>
-        <td>
-          攻击容量：{{ego.ATKWeight}}
+          攻击容量：{{ ego.awakening.ATKWeight }}
         </td>
       </tr>
     </table>
@@ -114,7 +122,7 @@ const rarityWidth = computed(() => unit.value.rarity * 12 + "px")
         <td>
           {{ skill.BasePower }}+{{ skill.coinPower }}&times;{{ skill.coins }}
         </td>
-        <td>攻击容量：{{skill.ATKWeight}}</td>
+        <td>攻击容量：{{ skill.ATKWeight }}</td>
         <td>x{{ skill.count }}</td>
       </tr>
     </table>
