@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 
 import {EGO} from "@/core/ego.ts";
-import AffinityImg from "../small/affinityImg.vue";
 import AtkTypeImg from "../small/atkTypeImg.vue";
 import Times from "../small/times.vue";
 import AttackTypeSelect from "@/components/small/AttackTypeSelect.vue";
@@ -10,15 +9,15 @@ const editor = EGO.Editor
 </script>
 
 <template>
-  <input type="checkbox" v-model="editor.corrosion.has" id="EC-has">
+  <input id="EC-has" v-model="editor.corrosion.has" type="checkbox">
   <label for="EC-has">启用侵蚀</label>
-  <div class="EC-table" v-if="editor.corrosion.has">
+  <div v-if="editor.corrosion.has" class="EC-table">
     <div>
       <div :class="editor.affinity" class="flex-center"
            style="width: calc(70px + 10rem) !important;">
         EGO侵蚀
       </div>
-      <div style="width: 80px;" class="pl-4">
+      <div class="pl-4" style="width: 80px;">
         <img alt="" src="../../assets/icons/coin.png" style="width: 20px;">
         <times/>
         <input v-model="editor.corrosion.coin" class="EC-s-coins"
@@ -39,7 +38,7 @@ const editor = EGO.Editor
         <img alt="???" src="../../assets/70-Snagharpoon.png"
              style="width: calc(100% - 24px);
                margin: 8px;position:relative;">
-        <AtkTypeImg :atk-type="editor.ATKType" />
+        <AtkTypeImg :atk-type="editor.ATKType"/>
         <AttackTypeSelect v-model="editor.ATKType"/>
       </div>
       <div style="flex-grow: 1;padding: 4px;user-select: none">

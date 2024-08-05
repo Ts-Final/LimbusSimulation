@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import {computed, ref} from "vue";
-import {Ego, EGO} from "@/core/ego.ts";
-import {Affinity} from "@/core/constants.ts";
+import {EGO} from "@/core/ego.ts";
 import EgoCard from "@/components/EgoEdit/EgoCard.vue";
 
 function deleteEgo(index: number) {
@@ -52,11 +51,13 @@ function newEgo() {
   width: 100%;
   height: min-content;
 }
+
 .EL-cards {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .EL-new {
   cursor: pointer;
   user-select: none;
