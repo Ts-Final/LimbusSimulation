@@ -1,61 +1,62 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 
-import {EGO} from "@/core/ego.ts";
-import Times from "../small/times.vue";
+import Times from "@/components/small/times.vue";
 import AttackTypeSelect from "@/components/small/AttackTypeSelect.vue";
-import AtkTypeImg from "@/components/small/atkTypeImg.vue";
+import {Skill} from "@/core/skill.ts";
+import AffinitySelect from "@/components/small/AffinitySelect.vue";
 
-const editor = EGO.Editor
+const editor = Skill.Editor
 </script>
 
 <template>
-  <div class="EA-table">
+  <div class="SB-table">
     <div>
       <div :class="editor.affinity" class="flex-center"
-           style="width: calc(70px + 10rem) !important;">
-        EGO觉醒
+           style="width: 70px !important;">
+        技能名：
+      </div>
+      <div style="flex-grow: 1  ">
+        <input v-model="editor.name" class="SB-s-name wrap-word" type="text">
       </div>
       <div style="width: 80px;" class="pl-4">
         <img alt="" src="../../assets/icons/coin.png" style="width: 20px;">
         <times/>
-        <input v-model="editor.awakening.coin" class="EA-s-coins excelsiorSans"
+        <input v-model="editor.coin" class="SB-s-coins"
                min="1" type="number">
 
       </div>
       <div style="width: calc(30px + 3.7rem);">
         <img alt="攻击等级" src="../../assets/icons/atk.png" style="width: 30px;">
-        <span v-if="editor.awakening.ATKLevel >= 0">+</span>
+        <span v-if="editor.ATKLevel >= 0">+</span>
         <span v-else style="visibility: hidden">+</span>
-        <input v-model="editor.awakening.ATKLevel" class="EA-s-atkLevel excelsiorSans" type="number">
+        <input v-model="editor.ATKLevel" class="SB-s-atkLevel" type="number">
       </div>
-      <div style="flex-grow: 1"></div>
     </div>
     <div>
       <div style="width: 70px;">
         <img alt="???" src="../../assets/70-Snagharpoon.png"
              style="width: calc(100% - 24px);
                margin: 8px;position:relative;">
-        <AtkTypeImg :atk-type="editor.ATKType" />
         <AttackTypeSelect v-model="editor.ATKType"/>
+        <AffinitySelect v-model="editor.affinity" />
       </div>
       <div style="flex-grow: 1;padding: 4px;user-select: none">
         <div>
           基础值：
-          <input v-model.number="editor.awakening.basePower"
-                 class="EA-s-basePower excelsiorSans" type="number">
+          <input v-model.number="editor.basePower"
+                 class="SB-s-basePower" type="number">
         </div>
         <div>
           变动值：
-          <span v-if="editor.awakening.coinPower >= 0">+</span>
+          <span v-if="editor.coinPower >= 0">+</span>
           <span v-else style="visibility: hidden">+</span>
-          <input v-model.number="editor.awakening.coinPower"
-                 class="excelsiorSans"
+          <input v-model.number="editor.coinPower"
                  type="number">
         </div>
         <div>
           攻击容量：
-          <input v-model="editor.awakening.ATKWeight"
-                 class="excelsiorSans" min="1"
+          <input v-model="editor.ATKWeight"
+                 min="1"
                  style="width: 4rem;" type="number">
 
         </div>
@@ -64,11 +65,10 @@ const editor = EGO.Editor
       </div>
     </div>
   </div>
-
 </template>
 
 <style scoped>
-.EA-wrapper {
+.SB-wrapper {
   display: flex;
   position: relative;
   width: 100%;
@@ -76,7 +76,7 @@ const editor = EGO.Editor
   height: 100%;
 }
 
-.EA-table {
+.SB-table {
   width: calc(100% - 4px);
   margin: 2px;
   height: min-content;
@@ -86,22 +86,22 @@ const editor = EGO.Editor
   border-top: 1px solid gray;
 }
 
-.EA-table > div {
+.SB-table > div {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.EA-table > div > div {
+.SB-table > div > div {
   border-bottom: 1px solid gray;
   border-left: 1px solid gray;
 }
 
-.EA-right > div {
+.SB-right > div {
   position: relative;
 }
 
-.EA-s-basePower {
+.SB-s-basePower {
   font-family: ExcelsiorSans, sans-serif;
   font-size: 1.2rem;
   text-align: left;
@@ -109,7 +109,7 @@ const editor = EGO.Editor
 }
 
 
-.EA-s-affinity {
+.SB-s-affinity {
   line-height: 2rem;
   height: 2.2rem;
   vertical-align: center;
@@ -119,7 +119,7 @@ const editor = EGO.Editor
   border: none;
 }
 
-.EA-s-CP > input {
+.SB-s-CP > input {
   width: 5rem;
   text-align: left;
   font-family: ExcelsiorSans, sans-serif;
@@ -127,23 +127,23 @@ const editor = EGO.Editor
   border-bottom: none !important;
 }
 
-.EA-s-source {
+.SB-s-source {
   width: 6rem;
 }
 
-.EA-s-atkType {
+.SB-s-atkType {
   align-self: center;
   background-color: transparent;
   position: relative;
 }
 
-.EA-s-coins {
+.SB-s-coins {
   width: 2.2rem;
   padding-left: 4px;
 }
 
 
-.EA-s-name {
+.SB-s-name {
   text-align: left;
   border: none !important;
   margin: 0;
@@ -151,30 +151,16 @@ const editor = EGO.Editor
 
 }
 
-.EA-s-atkLevel {
+.SB-s-atkLevel {
   width: 2.5rem;
   border: none !important;
 }
 
-.EA-s-l-img {
+.SB-s-l-img {
   width: 30px;
   height: 30px;
   left: 20px;
   position: relative;
   margin-top: 5px;
-}
-
-select {
-  line-height: 1.25rem;
-  border: none;
-  font-size: 1rem;
-  border-radius: 0;
-  background-color: transparent;
-}
-
-option {
-  color: #fff;
-  background-color: #000000;
-  border-radius: 0;
 }
 </style>

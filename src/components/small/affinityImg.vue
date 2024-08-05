@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import {Affinity} from "../../core/constants.ts";
+import {Affinity} from "@/core/constants.ts";
 const {affinity} = defineProps<{affinity: Affinity}>()
 </script>
 
 <template>
-  <img src="../../assets/affinity/Wrath.png" alt="" v-if="affinity === 'Wrath'">
-  <img src="../../assets/affinity/Lust.png" alt="" v-else-if="affinity === 'Lust'">
-  <img src="../../assets/affinity/Envy.png" alt="" v-else-if="affinity === 'Envy'">
-  <img src="../../assets/affinity/Pride.png" alt="" v-else-if="affinity === 'Pride'">
-  <img src="../../assets/affinity/Gloom.png" alt="" v-else-if="affinity === 'Gloom'">
-  <img src="../../assets/affinity/Gluttony.png" alt="" v-else-if="affinity === 'Gluttony'">
-  <img src="../../assets/affinity/Sloth.png" alt="" v-else>
+  <img src="../../assets/affinity/wrath.png" alt="" v-if="affinity === 'wrath'">
+  <img src="../../assets/affinity/lust.png" alt="" v-else-if="affinity === 'lust'">
+  <img src="../../assets/affinity/envy.png" alt="" v-else-if="affinity === 'envy'">
+  <img src="../../assets/affinity/pride.png" alt="" v-else-if="affinity === 'pride'">
+  <img src="../../assets/affinity/gloom.png" alt="" v-else-if="affinity === 'gloom'">
+  <img src="../../assets/affinity/gluttony.png" alt="" v-else-if="affinity === 'gluttony'">
+  <img src="../../assets/affinity/sloth.png" alt="" v-else>
 </template>
 
 <style scoped>

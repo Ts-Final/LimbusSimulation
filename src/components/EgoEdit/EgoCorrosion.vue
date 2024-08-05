@@ -1,35 +1,36 @@
 <script lang="ts" setup>
 
-import {EGO} from "../../core/ego/EGOBase.ts";
+import {EGO} from "@/core/ego.ts";
 import AffinityImg from "../small/affinityImg.vue";
 import AtkTypeImg from "../small/atkTypeImg.vue";
 import Times from "../small/times.vue";
+import AttackTypeSelect from "@/components/small/AttackTypeSelect.vue";
 
 const editor = EGO.Editor
 </script>
 
 <template>
-  <input type="checkbox" v-model="editor.corrosion.has.value" id="EC-has">
+  <input type="checkbox" v-model="editor.corrosion.has" id="EC-has">
   <label for="EC-has">启用侵蚀</label>
-  <div class="EC-table" v-if="editor.corrosion.has.value">
+  <div class="EC-table" v-if="editor.corrosion.has">
     <div>
-      <div :class="editor.affinity.value" class="flex-center"
+      <div :class="editor.affinity" class="flex-center"
            style="width: calc(70px + 10rem) !important;">
         EGO侵蚀
       </div>
       <div style="width: 80px;" class="pl-4">
         <img alt="" src="../../assets/icons/coin.png" style="width: 20px;">
         <times/>
-        <input v-model="editor.corrosion.coin.value" class="EC-s-coins"
+        <input v-model="editor.corrosion.coin" class="EC-s-coins"
                min="1" type="number">
 
       </div>
       <div style="width: calc(30px + 3.7rem);">
         <img alt="攻击等级" src="../../assets/icons/atk.png" style="width: 30px;">
-        <span v-if="editor.corrosion.ATKLevel.value >= 0">+</span>
+        <span v-if="editor.corrosion.ATKLevel >= 0">+</span>
         <span v-else style="visibility: hidden">+</span>
-        <input v-model="editor.corrosion.ATKLevel.value"
-               class="EC-s-atkLevel excelsiorSans" type="number">
+        <input v-model="editor.corrosion.ATKLevel"
+               class="EC-s-atkLevel" type="number">
       </div>
       <div style="flex-grow: 1"></div>
     </div>
@@ -38,44 +39,23 @@ const editor = EGO.Editor
         <img alt="???" src="../../assets/70-Snagharpoon.png"
              style="width: calc(100% - 24px);
                margin: 8px;position:relative;">
-        <AtkTypeImg :atk-type="editor.ATKType.value" class="EC-s-l-img"/>
-        <select v-model="editor.ATKType.value" class="EC-s-atkType">
-          <option value="pierce">
-            穿刺
-          </option>
-          <option value="blunt">
-            打击
-          </option>
-          <option value="slash">
-            斩击
-          </option>
-        </select>
-        <AffinityImg :affinity="editor.affinity.value" class="EC-s-l-img"/>
-        <select v-model="editor.affinity.value"
-                class="EC-s-affinity">
-          <option value="Wrath">暴怒！</option>
-          <option value="Lust">色欲</option>
-          <option value="Gluttony">暴食</option>
-          <option value="Sloth">怠惰</option>
-          <option value="Gloom">忧郁！</option>
-          <option value="Pride">傲慢！</option>
-          <option value="Envy">嫉妒！</option>
-        </select>
+        <AtkTypeImg :atk-type="editor.ATKType" />
+        <AttackTypeSelect v-model="editor.ATKType"/>
       </div>
       <div style="flex-grow: 1;padding: 4px;user-select: none">
         <div>
           基础值：
-          <input v-model.number="editor.corrosion.basePower.value" class="EC-s-basePower" type="text">
+          <input v-model.number="editor.corrosion.basePower" class="EC-s-basePower" type="text">
         </div>
         <div>
           变动值：
-          <span v-if="editor.corrosion.coinPower.value >= 0">+</span>
+          <span v-if="editor.corrosion.coinPower >= 0">+</span>
           <span v-else style="visibility: hidden">+</span>
-          <input v-model.number="editor.corrosion.coinPower.value" type="text">
+          <input v-model.number="editor.corrosion.coinPower" type="text">
         </div>
         <div>
           攻击容量：
-          <input v-model="editor.corrosion.ATKWeight.value"
+          <input v-model="editor.corrosion.ATKWeight"
                  min="1"
                  style="width: 4rem;" type="number">
 

@@ -1,45 +1,42 @@
 <script lang="ts" setup>
 
-import {FaultLiesYouIshmael} from "../../core/utils/faultLiesYouIshmael.ts";
 import {ref} from "vue";
-import UnitGeneral from "./UnitGeneral.vue";
-import UnitBase from "./UnitBase.vue";
-import UnitSkill from "./UnitSkill.vue";
-import UnitList from "./UnitList.vue";
-import UnitEgo from "./UnitEgo.vue";
+import IdentityBase from "@/components/Identity/IdentityBase.vue";
+import IdentityList from "@/components/Identity/IdentityList.vue";
+import IdentityGeneral from "@/components/Identity/IdentityGeneral.vue";
+import IdentitySkill from "@/components/Identity/IdentitySkill.vue";
+import IdentityEgo from "@/components/Identity/IdentityEgo.vue";
 
 const viewing = ref("list")
 </script>
 
 <template>
-  <div class="UT-wrapper">
-    <div class="UT-Ishmael"
-         @contextmenu="e=>{FaultLiesYouIshmael.FuckYouDante(); e.preventDefault()}"
-         @click="FaultLiesYouIshmael.play()"/>
-    <div class="UT-right">
-      <div class="UT-chooser">
+  <div class="IT-wrapper">
+    <div class="IT-Ishmael"/>
+    <div class="IT-right">
+      <div class="IT-chooser">
         <div @click="viewing = 'list'"
-             :class="viewing == 'list' ? 'UT-chosen':''">人格列表</div>
+             :class="viewing == 'list' ? 'IT-chosen':''">人格列表</div>
         <div @click="viewing = 'general'"
-             :class="viewing == 'general' ? 'UT-chosen':''">总览</div>
+             :class="viewing == 'general' ? 'IT-chosen':''">总览</div>
         <div @click="viewing = 'base'"
-             :class="viewing == 'base' ? 'UT-chosen':''">基础数值</div>
+             :class="viewing == 'base' ? 'IT-chosen':''">基础数值</div>
         <div @click="viewing = 'skill'"
-             :class="viewing == 'skill' ? 'UT-chosen':''">技能</div>
+             :class="viewing == 'skill' ? 'IT-chosen':''">技能</div>
         <div @click="viewing = 'ego'"
              :class="viewing == 'ego' ? 'uT-chosen':''">E!G!O!</div>
       </div>
-      <UnitList v-if="viewing == 'list'"/>
-      <UnitGeneral v-else-if="viewing == 'general'"/>
-      <UnitBase v-else-if="viewing == 'base'"/>
-      <UnitSkill v-else-if="viewing == 'skill'"/>
-      <UnitEgo v-else></UnitEgo>
+      <IdentityList v-if="viewing == 'list'" />
+      <IdentityGeneral v-else-if="viewing == 'general'"/>
+      <IdentityBase v-else-if="viewing == 'base'"/>
+      <IdentitySkill v-else-if="viewing == 'skill'"/>
+      <IdentityEgo v-else />
     </div>
   </div>
 </template>
 
 <style scoped>
-.UT-wrapper {
+.IT-wrapper {
   display: flex;
   position: absolute;
   height: 100%;
@@ -48,7 +45,7 @@ const viewing = ref("list")
   top: 0;
 }
 
-.UT-Ishmael {
+.IT-Ishmael {
   position: relative;
   width: 40%;
   height: 100%;
@@ -59,7 +56,7 @@ const viewing = ref("list")
   box-shadow: black 0 0 70px 20px inset;
 }
 
-.UT-right {
+.IT-right {
   position: absolute;
   right: 0;
   width: 60%;
@@ -70,7 +67,7 @@ const viewing = ref("list")
   padding-top: 75px;
 }
 
-.UT-chooser {
+.IT-chooser {
   width: 100%;
   position: absolute;
   top: 3px;
@@ -81,7 +78,7 @@ const viewing = ref("list")
   padding-left: 5px;
 }
 
-.UT-chooser > div {
+.IT-chooser > div {
   width: 160px;
   height: 45px;
 
@@ -100,13 +97,13 @@ const viewing = ref("list")
   user-select: none;
 }
 
-.UT-chooser > div:hover {
+.IT-chooser > div:hover {
   border-color: rgb(249, 197, 1);
   border-width: 3px;
   background-color: rgb(63, 26, 3);
 }
 
-.UT-chosen {
+.IT-chosen {
   border-color: rgb(249, 197, 1) !important;
   border-width: 3px;
   background-color: rgb(63, 26, 3) !important;

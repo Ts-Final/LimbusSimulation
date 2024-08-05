@@ -1,35 +1,14 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import {GameStorage} from "./core/GameStorage.ts";
-import {notify} from "./core/utils/notify.ts";
-import IMustBeTheReasonWhy from "./core/utils/IMustBeTheReasonWhy.ts";
+import {Storage} from "@/core/storage.ts";
+import Listener from "@/core/listener.ts";
+import {Cathy} from "@/core/title.ts";
 
 createApp(App).mount('#app')
 
-declare global {
-  interface Window {
-    player: any,
-    dev: any,
-    Decimal: any,
+Storage.load()
 
-    [key: string]: any
-  }
-}
+document.addEventListener("keydown", Listener)
 
-window.storage = GameStorage
-window.notify = notify
-
-setInterval(GameStorage.save, 10e3)
-document.addEventListener("keydown", function (ev) {
-  if (ev.code == "KeyS" && ev.ctrlKey) {
-    ev.preventDefault()
-    GameStorage.save()
-  }
-})
-window.onerror = function () {
-  GameStorage.fuck()
-}
-
-GameStorage.load()
-IMustBeTheReasonWhy.start()
+Cathy.play()

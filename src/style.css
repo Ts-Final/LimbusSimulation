@@ -7,6 +7,8 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+
+  --bgi: linear-gradient(60deg, #0d1418 0%, #11161b 100%);
 }
 
 * {
@@ -25,12 +27,7 @@ input {
   border: none;
   margin: 0;
   font-size: 1rem;
-  border-bottom: 2px transparent solid;
   vertical-align: center;
-}
-
-table input {
-  width: calc(100% - 4px);
 }
 
 .border-1bot {
@@ -49,9 +46,11 @@ table input {
   font-weight: normal;
   font-style: normal;
 }
+
 .excelsiorSans {
   font-family: ExcelsiorSans, sans-serif;
 }
+
 /* Used for character/names */
 @font-face {
   font-family: "Mikodacs";
@@ -60,20 +59,19 @@ table input {
   font-style: normal;
 }
 
-table {
+.border-table {
   background-color: transparent;
   border-right: 1px solid gray;
   border-top: 1px solid gray;
 
-}
-
-table td {
-  align-items: center;
-  text-align: center;
-  border-bottom: 1px solid gray;
-  border-left: 1px solid gray;
-  color: #b8dcee;
-  width: 10%;
+  td {
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    color: #b8dcee;
+    width: 10%;
+  }
 }
 
 /*notify abouts*/
@@ -153,59 +151,59 @@ table td {
   cursor: pointer;
 }
 
-.Wrath {
+.wrath {
   background-color: rgb(107, 10, 9);
 }
 
-.Wrath:hover {
+.wrath:hover {
   background-color: rgb(155, 11, 11);
 }
 
-.Envy {
+.envy {
   background-color: rgb(49, 3, 69);
 }
 
-.Envy:hover {
+.envy:hover {
   background-color: rgb(70, 2, 102);
 }
 
-.Pride {
+.pride {
   background-color: rgb(16, 43, 69);
 }
 
-.Pride:hover {
+.pride:hover {
   background-color: rgb(19, 59, 100);
 }
 
-.Gloom {
+.gloom {
   background-color: rgb(15, 68, 82);
 }
 
-.Gloom:hover {
+.gloom:hover {
   background-color: rgb(19, 100, 119);
 }
 
-.Gluttony {
+.gluttony {
   background-color: rgb(73, 104, 20);
 }
 
-.Gluttony:hover {
+.gluttony:hover {
   background-color: rgb(105, 151, 28);
 }
 
-.Sloth {
+.sloth {
   background-color: rgb(124, 93, 30);
 }
 
-.Sloth:hover {
+.sloth:hover {
   background-color: rgb(182, 137, 44);
 }
 
-.Lust {
+.lust {
   background-color: rgb(118, 52, 20);
 }
 
-.Lust:hover {
+.lust:hover {
   background-color: rgb(174, 76, 28);
 }
 
@@ -272,9 +270,18 @@ table {
   justify-content: center;
   align-items: center;
 }
+
 .pl-2 {
   padding-left: 2px;
 }
+
 .pl-4 {
   padding-left: 4px;
+}
+
+.wrap-word {
+  word-wrap: break-word;
+  text-wrap: wrap;
+  word-break: break-all;
+  line-break: anywhere;
 }

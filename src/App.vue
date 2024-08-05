@@ -1,26 +1,26 @@
 <script lang="ts" setup>
-import FaultLiesYouIshmael from "./components/FaultLiesYouIshmael.vue";
-import UnitTab from "./components/UnitEdit/UnitTab.vue";
-import SideBar from "./components/SideBar.vue";
-import {CurrentTab} from "./core/ui.ts";
-import StartUpTab from "./components/StartUp/StartUpTab.vue";
-import EgoTab from "./components/EgoEdit/EgoTab.vue";
+import IdentityTab from "@/components/Identity/IdentityTab.vue";
+import {CurrentTab} from "@/core/ui.ts";
+import SideBar from "@/components/SideBar.vue";
+import EgoTab from "@/components/EgoEdit/EgoTab.vue";
+import SkillTab from "@/components/skill/SkillTab.vue";
+import StartUpTab from "@/components/StartUp/StartUpTab.vue";
 </script>
 
 <template>
   <SideBar/>
-  <StartUpTab v-if="CurrentTab == 'startUp'"/>
-  <UnitTab v-if="CurrentTab == 'unit'"/>
-  <EgoTab v-if="CurrentTab == 'ego'" />
+  <IdentityTab v-if="CurrentTab == 'identity'"/>
+  <EgoTab v-else-if="CurrentTab == 'ego'"/>
+  <SkillTab v-else-if="CurrentTab == 'skill'"/>
+  <StartUpTab v-else/>
   <div id="notify-container"></div>
-  <FaultLiesYouIshmael/>
 </template>
 
 <style scoped>
 #notify-container {
   position: absolute;
-  top: 5px;
   right: 5px;
-  z-index: 100;
+  top: 5px;
+  z-index: 114514;
 }
 </style>

@@ -1,60 +1,46 @@
 <script setup lang="ts">
 
-import {EGO} from "../../core/ego/EGOBase.ts";
-import {Affinities} from "../../core/constants.ts";
+import {EGO} from "@/core/ego.ts";
 import AffinityImg from "../small/affinityImg.vue";
-import {resToClass, resToWord} from "../../core/utils/utils.ts";
+import {resToClass, resToWord} from "@/core/utils.ts"
+import RiskSelect from "@/components/small/RiskSelect.vue";
+import AffinitySelect from "@/components/small/AffinitySelect.vue";
+import {Affinity} from "@/core/constants.ts";
 
 const editor = EGO.Editor
 </script>
 
 <template>
-  <table style="margin: 4px;" >
-    <tr :class="editor.affinity.value">
-      <td>
+  <table style="margin: 4px;" class="border-table">
+    <tr :class="editor.affinity">
+      <td style="width: 7rem;">
         EGO名：
       </td>
       <td>
-        <input type="text" v-model="editor.name.value">
+        <input type="text" v-model="editor.name" class="mi">
       </td>
       <td>
         来源：
       </td>
       <td>
-        <input type="text" v-model="editor.source.value">
+        <input type="text" v-model="editor.source" class="mi">
       </td>
       <td>
         危险等级：
       </td>
       <td>
-        <select v-model="editor.RiskLevel.value">
-          <option value="ZAYIN">ZAYIN</option>
-          <option value="TETH">TETH</option>
-          <option value="HE">HE</option>
-          <option value="WAW">WAW</option>
-          <option value="ALEPH">ALEPH</option>
-          <option value="TARK">T.ARK.</option>
-        </select>
+        <RiskSelect v-model="editor.RiskLevel" />
       </td>
       <td>
         罪孽属性：
       </td>
       <td>
-        <select v-model="editor.affinity.value"
-                class="EA-s-affinity">
-          <option value="Wrath">暴怒！</option>
-          <option value="Lust">色欲</option>
-          <option value="Gluttony">暴食</option>
-          <option value="Sloth">怠惰</option>
-          <option value="Gloom">忧郁！</option>
-          <option value="Pride">傲慢！</option>
-          <option value="Envy">嫉妒！</option>
-        </select>
+        <AffinitySelect v-model="editor.affinity"/>
       </td>
     </tr>
     <tr>
       <td>罪孽</td>
-      <td v-for="key in Affinities">
+      <td v-for="key in Affinity">
         <AffinityImg :affinity="key" style="width: 1.5rem;"/>
       </td>
     </tr>
@@ -62,39 +48,27 @@ const editor = EGO.Editor
       <td>
         资源
       </td>
-      <td v-for="key in Affinities">
-        <input type="text" v-model.number="editor.resource[key].value"
-               style="text-align:center;"/>
+      <td v-for="key in Affinity">
+        <input type="text" v-model.number="editor.resource[key]"
+               style="text-align:center;max-width: 40px"/>
       </td>
     </tr>
     <tr>
       <td>抗性</td>
-      <td v-for="key in Affinities" :class="resToClass(editor.resistance[key].value)">
-        {{resToWord(editor.resistance[key].value)}}
+      <td v-for="key in Affinity" :class="resToClass(editor.resistance[key])">
+        {{resToWord(editor.resistance[key])}}
         &times;
-        <input type="text" :class="resToClass(editor.resistance[key].value)"
-               v-model.number="editor.resistance[key].value" style="width: 3rem;">
+        <input type="text" :class="resToClass(editor.resistance[key])"
+               v-model.number="editor.resistance[key]" style="width: 3rem;">
       </td>
     </tr>
   </table>
 </template>
 
 <style scoped>
-* :not(input) {
-  user-select: none;
+.mi {
+  min-width: 90px;
+  max-width: 110px;
+  text-align: center;
 }
-
-select {
-  line-height: 1.25rem;
-  border: none;
-  font-size: 1rem;
-  border-radius: 0;
-  background-color: transparent;
-}
-
-option {
-  color: #fff;
-  background-color: #000000;
-}
-
 </style>

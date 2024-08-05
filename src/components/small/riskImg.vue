@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import {RiskLevel} from "../../core/constants.ts";
+import {RiskLevel} from "@/core/constants.ts";
 
 const {riskLevel} = defineProps<{riskLevel: RiskLevel}>()
 </script>
 
 <template>
-  <img src="../../assets/risk/ZAYIN.png" alt="" v-if="riskLevel == 'ZAYIN'">
-  <img src="../../assets/risk/TETH.png" alt="" v-else-if="riskLevel == 'TETH'">
-  <img src="../../assets/risk/HE.png" alt="" v-else-if="riskLevel == 'HE'">
-  <img src="../../assets/risk/WAW.png" alt="" v-else-if="riskLevel == 'WAW'">
-  <img src="../../assets/risk/ALEPH.png" alt="" v-else-if="riskLevel == 'ALEPH'">
-  <img src="../../assets/risk/TARK.png" alt="" v-else-if="riskLevel == 'TARK'">
-
-
+  <img draggable="false" src="../../assets/risk/ZAYIN.png" alt="" v-if="riskLevel == 'ZAYIN'">
+  <img draggable="false" src="../../assets/risk/TETH.png" alt="" v-else-if="riskLevel == 'TETH'">
+  <img draggable="false" src="../../assets/risk/HE.png" alt="" v-else-if="riskLevel == 'HE'">
+  <img draggable="false" src="../../assets/risk/WAW.png" alt="" v-else-if="riskLevel == 'WAW'">
+  <img draggable="false" src="../../assets/risk/ALEPH.png" alt="" v-else-if="riskLevel == 'ALEPH'">
+  <img draggable="false" src="../../assets/risk/TARK.png" alt="" v-else-if="riskLevel == 'TARK'">
 </template>
 
 <style scoped>

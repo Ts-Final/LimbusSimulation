@@ -1,5 +1,5 @@
 {
-  "name": "084",
+  "name": "084-2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,14 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@eslint/js": "^9.6.0",
+    "@eslint/js": "^9.8.0",
     "typescript-eslint": "^7.16.0",
-    "vue": "^3.4.29"
+    "vue": "^3.4.31"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1",
-    "vue-tsc": "^2.0.21"
+    "vite": "^5.3.4",
+    "vue-tsc": "^2.0.24"
   }
 }

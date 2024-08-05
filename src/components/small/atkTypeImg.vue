@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import {AttackType} from "../../core/constants.ts";
+import {AttackType} from "@/core/constants.ts";
 
-const {atkType} = defineProps<{ atkType: AttackType }>()
+const props = defineProps<{ atkType: AttackType, width?:number|string}>()
+const atkType = props.atkType
+const width = props.width || '30px'
 </script>
 
 <template>
@@ -11,5 +13,7 @@ const {atkType} = defineProps<{ atkType: AttackType }>()
 </template>
 
 <style scoped>
-
+img {
+  max-width: v-bind(width);
+}
 </style>

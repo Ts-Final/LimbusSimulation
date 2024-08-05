@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 
-import {EGO} from "../../core/ego/EGOBase.ts";
+import {EGO} from "@/core/ego.ts";
 import AffinityImg from "../small/affinityImg.vue";
-import {Affinities} from "../../core/constants.ts";
+import {Affinity} from "@/core/constants.ts";
 import RiskImg from "../small/riskImg.vue";
-import {resToClass, resToWord} from "../../core/utils/utils.ts";
+import {resToClass, resToWord} from "@/core/utils.ts"
 
-const ego = EGO.current
+const ego = EGO.current()
 
 function resCount(val: number) {
   if (val <= 0) return "res-ineff"
@@ -24,16 +24,16 @@ function resCount(val: number) {
         {{ ego.name }}
       </div>
     </div>
-    <table class="EG-table">
+    <table class="EG-table border-table">
       <tr>
         <td>罪孽</td>
-        <td v-for="key in Affinities">
+        <td v-for="key in Affinity">
           <AffinityImg :affinity="key" style="width: 1.5rem;"/>
         </td>
       </tr>
       <tr>
         <td>资源</td>
-        <td v-for="val in Affinities" :class="resCount(ego.resource[val])">
+        <td v-for="val in Affinity" :class="resCount(ego.resource[val])">
           {{ ego.resource[val] }}
         </td>
       </tr>
@@ -43,14 +43,14 @@ function resCount(val: number) {
           <br>
           ???
         </td>
-        <td v-for="val in Affinities" :class="resToClass(ego.resistance[val])">
+        <td v-for="val in Affinity" :class="resToClass(ego.resistance[val])">
           {{ resToWord(ego.resistance[val]) }}
           <br>
           &times;{{ ego.resistance[val] }}
         </td>
       </tr>
     </table>
-    <table class="EG-table" style="margin-top: 30px;">
+    <table class="EG-table border-table" style="margin-top: 30px;">
       <tr>
         <td>觉醒</td>
         <td>{{ ego.awakening.basePower }}{{ ego.awakening.coinPower.toSigned() }}&times;{{ ego.awakening.coin }}</td>

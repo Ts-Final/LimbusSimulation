@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import StartQA from "./StartQA.vue";
 import {ref} from "vue";
+
 const QA = ref(false)
 </script>
 
@@ -20,6 +21,9 @@ const QA = ref(false)
     <div class="SU-qq">
       有建议可加群！(962500987)
     </div>
+    <div class="SU-github">
+      <a href="https://github.com/Ts-Final/LimbusSimulation">Github仓库页面</a>
+    </div>
   </div>
 </template>
 
@@ -31,6 +35,7 @@ const QA = ref(false)
   position: absolute;
   height: 100%;
 }
+
 .SU-terminal-flow\! {
   position: relative;
   font-size: 1.5em;
@@ -39,12 +44,14 @@ const QA = ref(false)
   text-align: center;
   top: 10rem;
 }
+
 .SU-title {
   position: relative;
   top: 15rem;
   text-align: center;
   font-size: 3rem;
 }
+
 .SU-QAer {
   position: relative;
   top: 20rem;
@@ -57,9 +64,18 @@ const QA = ref(false)
   color: #b8dcee;
   left: calc(50% - 7.5rem);
 }
+
 .SU-qq {
   position: relative;
   top: 30rem;
   text-align: center;
+}
+
+.SU-github {
+  position: absolute;
+  bottom: 15%;
+  align-self: center;
+  text-align: center;
+  width: 100%;
 }
 </style>
