@@ -6,7 +6,7 @@ import EgoCorrosion from "./EgoCorrosion.vue";
 import EgoList from "./EgoList.vue";
 import EgoBase from "./EgoBase.vue";
 
-const rotating = ref(false)
+/*const rotating = ref(false)
 
 function rotate() {
   if (rotating.value) {
@@ -16,15 +16,13 @@ function rotate() {
   if (confirm("你也要起舞吗？")) {
     rotating.value = true
   }
-}
+}*/
 
 const viewing = ref('list')
 </script>
 
 <template>
   <div class="ET-wrapper">
-    <div :class="rotating ? 'ET-Snagharpoon-rotating':''"
-         class="ET-Snagharpoon" @click="rotate"/>
     <div class="ET-right">
       <div class="ET-chooser">
         <div :class="viewing == 'list'? 'ET-chosen' :''" @click="viewing = 'list'">EGO列表</div>
@@ -52,7 +50,7 @@ const viewing = ref('list')
   left: 10vw;
   width: 90vw;
   top: 0;
-  flex-direction: row;
+  padding: 5px;
 }
 
 .ET-Snagharpoon {
@@ -93,21 +91,21 @@ const viewing = ref('list')
 
 .ET-right {
   position: absolute;
-  right: 0;
-  width: 60%;
   height: 100%;
   z-index: 2;
-  padding-top: 75px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .ET-chooser {
   width: 100%;
-  position: absolute;
   top: 3px;
   height: 70px;
   display: flex;
   flex-direction: row;
   gap: 5px;
+  margin-top: 5px;
   padding-left: 5px;
 }
 

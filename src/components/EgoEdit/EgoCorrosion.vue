@@ -1,78 +1,49 @@
 <script lang="ts" setup>
 
 import {EGO} from "@/core/ego.ts";
-import AtkTypeImg from "../small/atkTypeImg.vue";
-import Times from "../small/times.vue";
-import AttackTypeSelect from "@/components/small/AttackTypeSelect.vue";
 
 const editor = EGO.Editor
 </script>
 
 <template>
-  <input id="EC-has" v-model="editor.corrosion.has" type="checkbox">
-  <label for="EC-has">启用侵蚀</label>
-  <div v-if="editor.corrosion.has" class="EC-table">
-    <div>
-      <div :class="editor.affinity" class="flex-center"
-           style="width: calc(70px + 10rem) !important;">
-        EGO侵蚀
-      </div>
-      <div class="pl-4" style="width: 80px;">
-        <img alt="" src="../../assets/icons/coin.png" style="width: 20px;">
-        <times/>
-        <input v-model="editor.corrosion.coin" class="EC-s-coins"
-               min="1" type="number">
-
-      </div>
-      <div style="width: calc(30px + 3.7rem);">
-        <img alt="攻击等级" src="../../assets/icons/atk.png" style="width: 30px;">
-        <span v-if="editor.corrosion.ATKLevel >= 0">+</span>
-        <span v-else style="visibility: hidden">+</span>
-        <input v-model="editor.corrosion.ATKLevel"
-               class="EC-s-atkLevel" type="number">
-      </div>
-      <div style="flex-grow: 1"></div>
-    </div>
-    <div>
-      <div style="width: 70px;">
-        <img alt="???" src="../../assets/70-Snagharpoon.png"
-             style="width: calc(100% - 24px);
-               margin: 8px;position:relative;">
-        <AtkTypeImg :atk-type="editor.ATKType"/>
-        <AttackTypeSelect v-model="editor.ATKType"/>
-      </div>
-      <div style="flex-grow: 1;padding: 4px;user-select: none">
-        <div>
-          基础值：
-          <input v-model.number="editor.corrosion.basePower" class="EC-s-basePower" type="text">
+  <div class="EC-wrapper">
+    <label>
+      <input v-model="editor.corrosion.has" type="checkbox">
+      启用侵蚀
+    </label>
+    <div class="inf-list" v-if="editor.corrosion.has">
+      <div>
+        <div class="inf-title">
+          基础信息
         </div>
-        <div>
-          变动值：
-          <span v-if="editor.corrosion.coinPower >= 0">+</span>
-          <span v-else style="visibility: hidden">+</span>
-          <input v-model.number="editor.corrosion.coinPower" type="text">
+        消耗理智
+        <input v-model="editor.corrosion.sp" min="0" type="number">
+        硬币数
+        <input v-model="editor.corrosion.coin" min="1" type="number">
+        基础威力
+        <input v-model="editor.corrosion.basePower" type="number">
+        变动值
+        <input v-model="editor.corrosion.coinPower" type="number">
+        攻击等级修正
+        <input v-model="editor.corrosion.ATKLevel" type="number">
+        攻击容量
+        <input v-model="editor.corrosion.ATKWeight" type="number">
+      </div>
+      <div>
+        <div class="inf-title">
+          效果
         </div>
-        <div>
-          攻击容量：
-          <input v-model="editor.corrosion.ATKWeight"
-                 min="1"
-                 style="width: 4rem;" type="number">
-
-        </div>
-
-
       </div>
     </div>
   </div>
+
 
 </template>
 
 <style scoped>
 .EC-wrapper {
-  display: flex;
   position: relative;
   width: 100%;
-  flex-direction: row;
   height: 100%;
 }
 

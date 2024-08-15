@@ -26,6 +26,7 @@ select {
   font-size: 1rem;
   border-radius: 0;
   background-color: transparent;
+  max-width: 6rem;
 }
 
 option {

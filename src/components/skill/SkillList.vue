@@ -16,22 +16,53 @@ function add() {
   fuck()
 }
 
-function del(index: number) {
-  Skill.del(index)
-  fuck()
+function toDragStart(index: number | string) {
+  return function (e: DragEvent) {
+    e.dataTransfer?.setData("skill/index", index.toString())
+  }
+}
+
+function dropDelete(e:DragEvent) {
+  if (e.dataTransfer) {
+    const index = parseInt(e.dataTransfer.getData("skill/index"))
+    Skill.del(index)
+    fuck()
+  }
+}
+function dropCopy(e:DragEvent) {
+  if (e.dataTransfer) {
+    const index = parseInt(e.dataTransfer.getData("skill/index"))
+    Skill.copy(index)
+    fuck()
+  }
 }
 </script>
 
 <template>
   <div v-if="display" class="SL-wrapper">
-    <div style="text-align:center;">右键以删除。左键即可编辑该技能。</div>
-    <div class="SL-new" @click="add">点我新增技能</div>
     <div class="SL-contain">
       <SkillCard
           v-for="[index, skill] in Object.entries(Skill.storage)"
-          @click="viewing = index.num()"
+          @click="viewing = index.num()" draggable="true"
+          @dragstart="e => toDragStart(index.num())(e)"
           :chosen="computed(() => viewing == index.num())"
-          :skill="skill" @contextmenu.prevent="del(index.num())"/>
+          :skill="skill"/>
+    </div>
+    <div class="SL-table">
+      <div>
+        操作台
+        <br>
+        将卡拖至按钮
+      </div>
+      <div @drop="dropDelete" @dragover.prevent style="cursor:move;">
+        删除
+      </div>
+      <div @drop="dropCopy" @dragover.prevent style="cursor: move;">
+        复制
+      </div>
+      <div @click="add" style="cursor: pointer;">
+        新增
+      </div>
     </div>
   </div>
 
@@ -42,15 +73,14 @@ function del(index: number) {
 .SL-wrapper {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
 }
 
 .SL-contain {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
+  width: 80%;
   padding: 2px;
 }
 
@@ -87,5 +117,23 @@ function del(index: number) {
   line-height: 1.6rem;
   width: 10rem;
   text-align: center;
+}
+.SL-table {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  text-align: center;
+  border-top: 2px solid #7cdcf4;
+  border-left: 2px solid #7cdcf4;
+  height: min-content;
+}
+
+.SL-table>div {
+  border-right: 2px solid #7cdcf4;
+  border-bottom: 2px solid #7cdcf4;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

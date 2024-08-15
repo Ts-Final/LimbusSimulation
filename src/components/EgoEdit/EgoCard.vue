@@ -6,7 +6,7 @@ import {Affinity, RiskLevel} from "@/core/constants.ts";
 import {resToClass} from "@/core/utils.ts";
 import AffinityImg from "@/components/small/affinityImg.vue";
 
-const props = defineProps<{ ego: Ego, chosen?: Ref<boolean>, riskLevel?:RiskLevel }>()
+const props = defineProps<{ ego: Ego, chosen?: Ref<boolean>|boolean, riskLevel?:RiskLevel }>()
 const ego = props.ego
 const chosen = props.chosen ?? false
 const riskLevel = props.riskLevel ?? ego.RiskLevel
@@ -27,12 +27,10 @@ const riskLevel = props.riskLevel ?? ego.RiskLevel
       </div>
       <div style="display:flex;flex-direction: column">
         <div>
-          {{ ego.awakening.basePower }}{{ ego.awakening.coinPower.toSigned() }}
-          &times;{{ ego.awakening.coin }}
+          {{ ego.awakening.basePower }}{{ ego.awakening.coinPower.toSigned()}}&times;{{ ego.awakening.coin }}
         </div>
         <div v-if="ego.corrosion.has">
-          {{ ego.corrosion.basePower }}{{ ego.corrosion.coinPower.toSigned() }}
-          &times;{{ ego.corrosion.coin }}
+          {{ ego.corrosion.basePower }}{{ ego.corrosion.coinPower.toSigned() }}&times;{{ ego.corrosion.coin }}
         </div>
         <div v-else>无侵蚀</div>
       </div>
@@ -49,7 +47,6 @@ const riskLevel = props.riskLevel ?? ego.RiskLevel
         </div>
       </div>
     </div>
-
   </div>
 
 </template>
@@ -87,6 +84,7 @@ const riskLevel = props.riskLevel ?? ego.RiskLevel
   flex-direction: column;
   text-align: center;
   border: 2px solid #b8dcee;
+  width: min-content;
 }
 
 .ego-card:hover .ego-card-popout {
@@ -95,14 +93,13 @@ const riskLevel = props.riskLevel ?? ego.RiskLevel
   user-select: none;
   pointer-events: none;
   opacity: 1;
-
-
 }
 
 .ego-popout-affinity {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
+  gap: 3px 3px;
 }
 .ego-card-chosen {
   border-color: #f7f12c;

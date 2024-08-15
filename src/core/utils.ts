@@ -1,4 +1,3 @@
-import {Ref, ref} from "vue";
 import {init} from "./extensions.ts"
 
 export const notify = (function () {
@@ -66,7 +65,7 @@ export const notify = (function () {
 })()
 
 
-type objToRef<obj> = {
+/*type objToRef<obj> = {
   [key in keyof obj]: obj[key] extends object ? objToRef<obj[key]> : Ref<obj[key]>
 }
 type editorType<obj> = {
@@ -102,27 +101,31 @@ export function toEditor<dataType>(init: dataType): editorType<dataType> {
   }
   // @ts-expect-error Fuck Why does that fuck
   return Editor
-}
+}*/
 
 export function isNumberLike(str: string) {
   return str.match(/^[0-9]+(\.[0-9]+)?$/g)?.length == 1
 }
 
-export function assign<T>(target: T, source: T) {
+export function assign<T, K>(target: T, source: K): T & K {
   if (typeof target !== "object" || typeof source !== "object") {
-    return target
+    throw new Error()
   }
-  if (!source) throw new Error()
+  if (!source || !target) throw new Error()
 
-  for (const key in target) {
-    if (target[key] instanceof Array) {
-      target[key] = source[key]
-    } else if (typeof target[key] === "object") {
-      assign(target[key], source[key])
+  for (const key in source) {
+    const key1 = key as unknown as keyof T
+    if (target[key1] instanceof Array) {
+      // @ts-expect-error
+      target[key1] = source[key as keyof K]
+    } else if (typeof target[key1] === "object") {
+      assign(target[key1], source[key])
     } else {
-      target[key] = source[key]
+      // @ts-expect-error
+      target[key1] = source[key]
     }
   }
+  // @ts-expect-error
   return target
 }
 
@@ -176,5 +179,35 @@ export function resToWord(val: number) {
     return "致命"
   }
 }
+
+export function deepmerge<T, K>(v1: T, v2: K): T & K {
+  const x = {}
+  const x1 = assign(v1, x)
+  return assign(x1, v2)
+}
+
+// Randomly arrange an array.
+// see https://zh.javascript.info/task/shuffle
+export function shuffle(array: any[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // 从 0 到 i 的随机索引
+
+    // 交换元素 array[i] 和 array[j]
+    // 我们使用“解构分配（destructuring assignment）”语法来实现它
+    // 你将在后面的章节中找到有关该语法的更多详细信息
+    // 可以写成：
+    // let t = array[i]; array[i] = array[j]; array[j] = t
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+/**
+ * Random choose a number from [min, max]
+ * */
+export function randomInteger(min: number, max: number) {
+  const length = max - min + 1
+  return Math.floor(Math.random() * length + min)
+}
+
 
 init()

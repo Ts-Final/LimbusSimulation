@@ -5,11 +5,23 @@ import SkillBase from "@/components/skill/SkillBase.vue";
 import SkillList from "@/components/skill/SkillList.vue";
 
 const viewing = ref("list")
+
+const rotating = ref(false)
+
+function rotate() {
+  if (rotating.value) {
+    rotating.value = false
+    return
+  }
+  if (confirm("你也要起舞吗？")) {
+    rotating.value = true
+  }
+}
 </script>
 
 <template>
   <div class="ST-wrapper">
-    <div class="ST-Angela"/>
+    <img src="../../assets/Angela.png" class="ST-Angela" alt="" @click="rotate" :class="rotating ? 'ST-rotate':''"/>
     <div class="ST-right">
       <div class="ST-chooser">
         <div :class="viewing == 'list' ? 'ST-chosen':''"
@@ -33,23 +45,32 @@ const viewing = ref("list")
   left: 10vw;
   width: 90vw;
   top: 0;
+  flex-direction: row;
+  transition: all 0.1s linear;
+}
+.ST-rotate {
+  animation: a-ST-rotating 1s linear infinite forwards;
+}
+
+@keyframes a-ST-rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .ST-Angela {
   position: relative;
-  width: 30%;
-  height: auto;
-  background-repeat: no-repeat;
   bottom: 0;
-  background-image: url("@/assets/Angela.png");
-  background-size: cover;
   z-index: 0;
-  background-position: 50px 0;
-  transform: rotateY(180deg)
+  transform: rotateY(180deg);
+  user-select: none;
+
 }
 
 .ST-right {
-  position: absolute;
   right: 0;
   height: 100%;
   display: flex;

@@ -30,7 +30,7 @@ const chosen = props.chosen ?? false
 <style scoped>
 .skill-card {
   width: 200px;
-  height: auto;
+  height: min-content;
   display: flex;
   flex-direction: column;
   border: #7cdcf4 2px solid;

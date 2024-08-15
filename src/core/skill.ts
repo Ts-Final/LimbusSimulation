@@ -70,7 +70,13 @@ function del(idx: number) {
   storage.splice(idx, 1)
   watcher(0)
 }
-
+function copy(data: number | Skill) {
+  if (typeof data == "number") {
+    storage.push(assign(template(), storage[data]))
+  } else {
+    storage.push(assign(template(), data))
+  }
+}
 
 export const Skill = {
   storage,
@@ -80,5 +86,6 @@ export const Skill = {
   Editor,
   add,
   del,
-  template
+  template,
+  copy,
 }

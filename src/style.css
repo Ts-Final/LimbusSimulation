@@ -25,9 +25,15 @@ input {
   padding-left: 2px;
   background-color: transparent;
   border: none;
-  margin: 0;
   font-size: 1rem;
   vertical-align: center;
+
+  border-bottom: 1px solid #7cdcf4;
+  border-radius: 2px;
+  position: relative;
+  width: 80%;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
 }
 
 .border-1bot {
@@ -284,4 +290,46 @@ table {
   text-wrap: wrap;
   word-break: break-all;
   line-break: anywhere;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #7cdcf4;
+  border-radius: 5px;
+}
+
+.inf-list {
+  margin: 5px;
+  padding: 10px;
+  height: min-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
+  max-width: 90%;
+}
+.inf-list > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 4px;
+  border: #7cdcf4 1px solid;
+  height: min-content;
+  position: relative;
+  padding: 4rem;
+  text-align: center;
+}
+.inf-list > div > .inf-title {
+  display: block;
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  text-align: center;
+}
+.inf-list input {
+  max-width: 200px;
 }

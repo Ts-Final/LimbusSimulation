@@ -1,124 +1,129 @@
 <script lang="ts" setup>
-import {Identity} from "@/core/identity.ts";
+import { Identity } from "@/core/identity.ts";
 import AtkTypeImg from "@/components/small/atkTypeImg.vue";
+import { resToClass } from "@/core/utils";
 
 const editor = Identity.editor
 </script>
 
 <template>
-  <table class="border-table" style="margin: 4px;">
-    <tr>
-      <td>
+  <div class="IB-wrapper">
+    <div class="IB-col">
+      <div class="IB-base">
+        <div class="IB-title">
+          基本信息
+        </div>
         角色
-      </td>
-      <td colspan="2">
-        <input v-model="editor.character" type="text" class="bi">
-      </td>
-      <td>
+        <input v-model="editor.character" type="text">
         称号
-      </td>
-      <td colspan="2">
-        <input v-model="editor.name" type="text" class="bi">
-      </td>
-      <td>稀有度</td>
-      <td>
-        <input v-model.number="editor.rarity" class="si" type="text">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <img alt="体力" src="../../assets/icons/hp.png" style="width: 30px;">
-      </td>
-      <td>{{ Identity.refs.hp.value }}</td>
-      <td>
-        <img alt="防御" src="../../assets/icons/def.png" style="width: 30px;"/>
-      </td>
-      <td>{{ editor.defense + 45 }}</td>
-      <td colspan="2">混乱阈值</td>
-      <td colspan="2">速度</td>
-    </tr>
-    <tr>
-      <td>基础值</td>
-      <td>
-        <input v-model.number="editor.hp.base" class="mi" type="text" placeholder="0">
-      </td>
-      <td>基础值</td>
-      <td>人格等级</td>
-      <td>系数</td>
-      <td>
-        <input v-model.trim="editor.stagger" class="text-center" type="text">
-      </td>
-      <td rowspan="2">
-        <input v-model.number="editor.speed[0]" class="ci" type="text">
-      </td>
-      <td rowspan="2">
-        <input v-model.number="editor.speed[1]" class="ci" type="text">
-      </td>
-    </tr>
-    <tr>
-      <td>变动值</td>
-      <td>
-        <input v-model.number="editor.hp.modify" class="mi" type="text">
-      </td>
-      <td>变动值</td>
-      <td>
-        <input v-model.number="editor.defense" class="si" type="text">
-      </td>
-      <td>阈值</td>
-      <td>
-        {{ Identity.refs.stagger.value }}
-      </td>
-    </tr>
-  </table>
-  <table style="width: 60%; align-self: center; margin-top: 20px;" class="border-table">
-    <tr>
-      <td colspan="3">攻击抗性</td>
-    </tr>
-    <tr>
-      <td>
-        <AtkTypeImg atk-type="slash"/>
-      </td>
-      <td>
-        <AtkTypeImg atk-type="pierce"/>
-      </td>
-      <td>
-        <AtkTypeImg atk-type="blunt"/>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        &times;
-        <input v-model="editor.resistance.slash" class="si" type="text">
-      </td>
-      <td>
-        &times;
-        <input v-model="editor.resistance.pierce" class="si" type="text">
-      </td>
-      <td>
-        &times;
-        <input v-model="editor.resistance.blunt" class="si" type="text">
-      </td>
-    </tr>
-  </table>
+        <input v-model="editor.name" type="text">
+        稀有度
+        <input v-model.number="editor.rarity" type="number">
+      </div>
+      <div class="IB-base">
+        <div class="IB-title">
+          基础数值
+        </div>
+        等级：
+        <input v-model.number="editor.level" type="number">
+        体力-基础值：
+        <input v-model.number="editor.hp.base" type="text">
+        体力-变动值：
+        <input v-model.number="editor.hp.modify" type="text">
+        体力-预览：
+        <span>
+          {{ editor.hp.base }}{{ editor.hp.modify.toSigned() }}*{{ editor.level }} =
+          {{ Identity.refs.hp.value }}
+        </span>
+        防御-基础值：
+        <span>人格等级</span>
+        防御-变动值：
+        <input v-model.number="editor.defense" type="text">
+        防御等级：
+        <span>{{ editor.level + editor.defense }}</span>
+        速度-最小值：
+        <input v-model.number="editor.speed[0]" type="number">
+        速度-最大值：
+        <input v-model.number="editor.speed[1]" type="number">
+        <label :class="resToClass(editor.resistance.pierce)">
+          抗性：
+          <AtkTypeImg atk-type="pierce" />
+        </label>
+        <input type="text" v-model.number="editor.resistance.pierce" />
+        <label :class="resToClass(editor.resistance.blunt)">
+          抗性：
+          <AtkTypeImg atk-type="blunt" />
+        </label>
+        <input type="text" v-model.number="editor.resistance.blunt" />
+        <label :class="resToClass(editor.resistance.slash)">
+          抗性：
+          <AtkTypeImg atk-type="slash" />
+        </label>
+        <input type="text" v-model.number="editor.resistance.slash" />
+
+      </div>
+    </div>
+    <div class="IB-col">
+      <div class="IB-base">
+        <div class="IB-title">
+          被动能力
+        </div>
+        Coming s∞n
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <style scoped>
-.si {
-  min-width: 40px;
-  max-width: 60px;
+.IB-wrapper {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
 }
 
-.mi {
-  min-width: 90px;
-  max-width: 110px;
-  text-align: center;
-}
-.bi {
-  width: calc(100% - 4px);
+.IB-col {
+  margin: 5px;
+  padding: 10px;
+  height: min-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
 }
 
-.ci {
-  width: 40px;
+.IB-base {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 4px;
+  border: #7cdcf4 1px solid;
+  height: min-content;
+  position: relative;
+  padding: 4rem;
   text-align: center;
+}
+
+.IB-title {
+  display: block;
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+input {
+  border-bottom: 1px solid #7cdcf4;
+  border-radius: 2px;
+  position: relative;
+  width: 80%;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
+span {
+  text-align: left;
+  overflow-x: visible;
+  margin-bottom: 5px;
 }
 </style>

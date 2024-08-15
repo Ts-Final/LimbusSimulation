@@ -7,6 +7,8 @@ declare global {
     gt(val: number): boolean
 
     minus(val: number): number
+
+    clamp(min: number, max: number): number
   }
 
   interface String {
@@ -24,6 +26,10 @@ Number.prototype.gt = function (val: number) {
 }
 Number.prototype.minus = function (val: number) {
   return this.valueOf() - val
+}
+Number.prototype.clamp = function (min,max) {
+  // why should i define Number as number
+  return Math.min(Math.max(min,this as number), max)
 }
 
 String.prototype.num = function () {

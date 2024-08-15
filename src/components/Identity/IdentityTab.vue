@@ -12,13 +12,12 @@ const viewing = ref("list")
 
 <template>
   <div class="IT-wrapper">
-    <div class="IT-Ishmael"/>
     <div class="IT-right">
       <div class="IT-chooser">
         <div @click="viewing = 'list'"
              :class="viewing == 'list' ? 'IT-chosen':''">人格列表</div>
-        <div @click="viewing = 'general'"
-             :class="viewing == 'general' ? 'IT-chosen':''">总览</div>
+        <!-- <div @click="viewing = 'general'"
+             :class="viewing == 'general' ? 'IT-chosen':''">总览</div> -->
         <div @click="viewing = 'base'"
              :class="viewing == 'base' ? 'IT-chosen':''">基础数值</div>
         <div @click="viewing = 'skill'"
@@ -43,33 +42,21 @@ const viewing = ref("list")
   left: 10vw;
   width: 90vw;
   top: 0;
-}
-
-.IT-Ishmael {
-  position: relative;
-  width: 40%;
-  height: 100%;
-  background-image: url("../../assets/captain.png");
-  background-size: cover;
-  background-position: -450px 0;
-  z-index: 0;
-  box-shadow: black 0 0 70px 20px inset;
+  padding: 5px;
 }
 
 .IT-right {
   position: absolute;
-  right: 0;
-  width: 60%;
-  height: 100%;
+  width: 100%;
+  height: 100%; 
   display: flex;
   flex-direction: column;
   z-index: 2;
-  padding-top: 75px;
+  flex-grow: 1;
 }
 
 .IT-chooser {
   width: 100%;
-  position: absolute;
   top: 3px;
   height: 70px;
   display: flex;

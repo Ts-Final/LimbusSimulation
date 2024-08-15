@@ -81,9 +81,9 @@ const credits = ref(false)
             <div class="answer">
               对于EGO，计划是不为其设置一个特别的危险等级（只是默认的而已），在装备时考虑到有些时候会重复使用EGO（其实是有人和我说别锁着等级），所以没有改。<br>
               仍然，必须装备Z级的EGO，这个不能犯天条。<br>
-              T.ARK.是我的一个自作游戏（当然现在没时间做现在恐怕也不会怎么做了）中的设定，是Terminal: Artificial Resistance
+              T.ARK.是我的一个自作游戏（当然现在没时间做现在恐怕也不会怎么做了）中的设定，是<del>Terminal: Artificial Resistance</del>
               of Karma的缩写。<br>
-              同时，人格的默认名字（羽化ARK="雪芸"）同样是这个设定出来的东西，雪芸是故事里极（重要？）的人物（可能类似于Angela在你游的地位吧），然后同时我一般用作笔名。<br>
+              同时，人格的默认名字（羽化ARK="雪芸"）同样是这个设定出来的东西，雪芸是故事里极（重要？）的人物（可能类似于Angela在你游的地位吧）。<br>
               请不要纠结这个ARK相关的东西，在战斗中我不会让这个东西上场的（看情况吧，有意见再说。）
             </div>
           </div>
@@ -212,15 +212,6 @@ const credits = ref(false)
   padding-left: 5px;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #7cdcf4;
-  border-radius: 5px;
-}
 
 .SQA-titles {
   font-size: 1.2rem;

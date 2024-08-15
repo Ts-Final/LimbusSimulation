@@ -1,6 +1,6 @@
-import {RiskLevel} from "@/core/constants.ts";
-import {ref, watch} from "vue";
-import {assign, isNumberLike, sorter} from "@/core/utils.ts";
+import { RiskLevel } from "@/core/constants.ts";
+import { ref, watch } from "vue";
+import { assign, isNumberLike, sorter } from "@/core/utils.ts";
 
 export interface Identity {
   character: string
@@ -20,6 +20,8 @@ export interface Identity {
   ego: Record<RiskLevel, number | undefined>
   skill: [number, number][]
   stagger: string
+  level: number
+  tags: string[]
 
 }
 
@@ -58,6 +60,8 @@ function template(): Identity {
       ALEPH: undefined,
       TARK: undefined,
     },
+    level: 45,
+    tags: []
   }
 }
 
@@ -81,7 +85,7 @@ function updateStagger(value: Identity) {
 const hp = ref(0)
 
 function updateHp(value: Identity) {
-  hp.value = Math.floor(value.hp.base + value.hp.modify * 45)
+  hp.value = Math.floor(value.hp.base + value.hp.modify * value.level)
 }
 
 function fix(data: Identity) {
@@ -106,7 +110,7 @@ watch(Editor, (value) => {
   updateHp(value)
   updateStagger(value)
 
-}, {deep: true, immediate: true})
+}, { deep: true, immediate: true })
 
 function load() {
   assign(Editor.value, current())
@@ -131,6 +135,14 @@ function del(index: number) {
   watcher(0)
 }
 
+function copy(data: number | Identity) {
+  if (typeof data == "number") {
+    storage.push(assign(template(), storage[data]))
+  } else {
+    storage.push(assign(template(), data))
+  }
+}
+
 export const Identity = {
   storage,
   viewing,
@@ -148,7 +160,7 @@ export const Identity = {
   del,
   add,
   hp(identity: Identity) {
-    return Math.floor(identity.hp.base + identity.hp.modify * 45)
+    return Math.floor(identity.hp.base + identity.hp.modify * identity.level)
   },
   stagger(identity: Identity) {
     return identity.stagger.split(" ")
@@ -158,5 +170,6 @@ export const Identity = {
       .map(Math.round)
       .sort(sorter.BigToSmall)
       .join(" ")
-  }
+  },
+  copy
 }

@@ -1,7 +1,7 @@
-import {Affinity, AttackType, RiskLevel} from "@/core/constants.ts";
-import {ref, watch} from "vue";
-import {assign, notify} from "@/core/utils.ts";
-import {Identity} from "@/core/identity.ts";
+import { Affinity, AttackType, RiskLevel } from "@/core/constants.ts";
+import { ref, watch } from "vue";
+import { assign, notify } from "@/core/utils.ts";
+import { Identity } from "@/core/identity.ts";
 
 export interface Ego {
   name: string
@@ -89,7 +89,7 @@ const Editor = ref(template())
 
 watch(Editor, value => {
   assign(current(), value)
-}, {deep: true})
+}, { deep: true })
 
 function add() {
   storage.push(template())
@@ -108,7 +108,7 @@ function del(index: number) {
   for (const unit of Identity.storage) {
     for (const rl of RiskLevel) {
       if (unit.ego[rl] == index && rl == "ZAYIN") {
-        notify.error(unit.name + "已将此EGO装备为ZAYIN，请先将该单位的Z级EGO换掉。", 1000)
+        notify.error(unit.character + "-" + unit.name + "已将此EGO装备为ZAYIN，请先将该单位的Z级EGO换掉。", 1000)
         return;
       } else if (unit.ego[rl] == index) {
         unit.ego[rl] = undefined
@@ -123,8 +123,17 @@ function del(index: number) {
 
 }
 
-function index(idx:number) {
+function index(idx: number) {
   return storage[idx]
+}
+
+function copy(idx: number | Ego) {
+  if (typeof idx == "number") {
+    storage.push(assign(template(), index(idx)))
+  }
+  else {
+    storage.push(assign(template(), idx))
+  }
 }
 
 export const EGO = {
@@ -135,6 +144,6 @@ export const EGO = {
   add,
   del,
   index,
-  template
-
+  template,
+  copy
 }
