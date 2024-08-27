@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Identity } from '@/core/identity';
 import { Ref } from 'vue';
+import {sound} from "@/core/sound.ts";
 
 const props = defineProps<{ identity: Identity, chosen?: Ref<boolean> }>()
 const identity = props.identity
@@ -11,7 +12,9 @@ const W = identity.rarity * 12 + "px"
 </script>
 
 <template>
-  <div class="identity-card" draggable="true" :class="chosen ? 'identity-card-chosen' : ''">
+  <div class="identity-card" draggable="true"
+       @mouseenter="sound.char.hover.play"
+       :class="chosen ? 'identity-card-chosen' : ''">
     <div class="identity-rarity" />
     <div class="identity-inf">
       <div>
@@ -21,6 +24,9 @@ const W = identity.rarity * 12 + "px"
       <div>
         <img src="../../assets/icons/def.png" alt="防御">
         {{ identity.defense + identity.level }}
+      </div>
+      <div>
+        速度：{{identity.speed.join("~")}}
       </div>
     </div>
     <div class="identity-name">
@@ -36,6 +42,7 @@ const W = identity.rarity * 12 + "px"
 <style lang="css" scoped>
 .identity-card {
   width: 150px;
+  min-width: 150px;
   height: 250px;
   border: rgb(254, 223, 0) 2px solid;
   border-radius: 10px;
@@ -93,6 +100,8 @@ const W = identity.rarity * 12 + "px"
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
+  width: 90%;
 }
 
 img {

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
-import EgoGeneral from "./EgoGeneral.vue";
 import EgoAwakening from "./EgoAwakening.vue";
 import EgoCorrosion from "./EgoCorrosion.vue";
 import EgoList from "./EgoList.vue";
@@ -26,7 +25,6 @@ const viewing = ref('list')
     <div class="ET-right">
       <div class="ET-chooser">
         <div :class="viewing == 'list'? 'ET-chosen' :''" @click="viewing = 'list'">EGO列表</div>
-        <div :class="viewing == 'general'? 'ET-chosen' :''" @click="viewing = 'general'">总览</div>
         <div :class="viewing == 'base'? 'ET-chosen' :''" @click="viewing = 'base'">基础信息</div>
         <div :class="viewing == 'awakening'? 'ET-chosen' :''" @click="viewing = 'awakening'">觉醒</div>
         <div :class="viewing == 'corrosion'? 'ET-chosen' :''" @click="viewing = 'corrosion'">侵蚀</div>
@@ -34,7 +32,6 @@ const viewing = ref('list')
       </div>
       <EgoList v-if="viewing == 'list'"/>
       <EgoBase v-if="viewing == 'base'"/>
-      <EgoGeneral v-if="viewing == 'general'"/>
       <EgoAwakening v-if="viewing == 'awakening'"/>
       <EgoCorrosion v-if="viewing == 'corrosion'"/>
 

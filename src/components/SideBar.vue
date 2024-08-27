@@ -1,15 +1,18 @@
 <script lang="ts" setup>
 
 import {CurrentTab, TabName, Tabs} from "../core/ui.ts";
+import {sound} from "@/core/sound.ts";
 </script>
 
 <template>
   <div class="SB-wrapper">
-    <div v-for="tab in Tabs" :class="CurrentTab == tab ? 'chosen' : ''" @click="CurrentTab = tab">
+    <div v-for="tab in Tabs"
+         :class="CurrentTab == tab ? 'chosen' : ''"
+         @mouseenter="sound.tab.click.play"
+         @click="CurrentTab = tab">
       {{ TabName(tab) }}
     </div>
   </div>
-
 </template>
 
 <style scoped>
@@ -17,6 +20,7 @@ import {CurrentTab, TabName, Tabs} from "../core/ui.ts";
   width: 10vw;
   display: flex;
   flex-direction: column;
+  position: absolute;
 
 }
 

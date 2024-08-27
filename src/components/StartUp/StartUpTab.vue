@@ -2,8 +2,10 @@
 
 import StartQA from "./StartQA.vue";
 import {ref} from "vue";
+import Versions from "@/components/StartUp/Versions.vue";
 
 const QA = ref(false)
+const version = ref(false)
 </script>
 
 <template>
@@ -12,12 +14,16 @@ const QA = ref(false)
       Terminal Flow!
     </div>
     <div class="SU-title">
-      一个编辑器。
+      边狱巴士编辑器。
     </div>
     <div class="SU-QAer flex-center" @click="QA = true">
       查看QA（荐·新·看）
     </div>
     <StartQA v-model="QA"/>
+    <div class="SU-version flex-center" @click="version = true">
+      版本更新日志
+    </div>
+    <Versions v-model="version"/>
     <div class="SU-qq">
       有建议可加群！(962500987)
     </div>
@@ -35,7 +41,16 @@ const QA = ref(false)
   position: absolute;
   height: 100%;
 }
-
+.SU-version {
+  position: relative;
+  top: 27rem;
+  left: calc(50% - 5rem);
+  width: 10rem;
+  height: 2.5rem;
+  box-sizing: border-box;
+  border: #7cdcf4 2px solid;
+  cursor: pointer;
+}
 .SU-terminal-flow\! {
   position: relative;
   font-size: 1.5em;

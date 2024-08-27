@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 
 import {EGO} from "@/core/ego.ts";
+import SpiltCol from "@/components/small/SpiltCol.vue";
 
 const editor = EGO.Editor
 </script>
@@ -8,39 +9,49 @@ const editor = EGO.Editor
 <template>
   <div class="EC-wrapper">
     <label>
-      <input v-model="editor.corrosion.has" type="checkbox">
+      <input v-model="editor.corrosion.has" type="checkbox" style="max-width: 1rem">
       启用侵蚀
     </label>
-    <div class="inf-list" v-if="editor.corrosion.has">
-      <div>
-        <div class="inf-title">
-          基础信息
+    <SpiltCol>
+      <template v-slot:l>
+        <div class="inf-list" v-if="editor.corrosion.has">
+          <div>
+            <div class="inf-title">
+              基础信息
+            </div>
+            消耗理智
+            <input v-model="editor.corrosion.sp" min="0" type="number">
+            硬币数
+            <input v-model="editor.corrosion.coin" min="1" type="number">
+            基础威力
+            <input v-model="editor.corrosion.basePower" type="number">
+            变动值
+            <input v-model="editor.corrosion.coinPower" type="number">
+            攻击等级修正
+            <input v-model="editor.corrosion.ATKLevel" type="number">
+            攻击容量
+            <input v-model="editor.corrosion.ATKWeight" type="number">
+          </div>
         </div>
-        消耗理智
-        <input v-model="editor.corrosion.sp" min="0" type="number">
-        硬币数
-        <input v-model="editor.corrosion.coin" min="1" type="number">
-        基础威力
-        <input v-model="editor.corrosion.basePower" type="number">
-        变动值
-        <input v-model="editor.corrosion.coinPower" type="number">
-        攻击等级修正
-        <input v-model="editor.corrosion.ATKLevel" type="number">
-        攻击容量
-        <input v-model="editor.corrosion.ATKWeight" type="number">
-      </div>
-      <div>
-        <div class="inf-title">
-          效果
+      </template>
+      <template v-slot:r>
+        <div class="inf-list" v-if="editor.corrosion.has">
+          <div>
+            <div class="inf-title">
+              效果
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </SpiltCol>
   </div>
-
-
 </template>
 
 <style scoped>
+label {
+  position: relative;
+}
+
 .EC-wrapper {
   position: relative;
   width: 100%;

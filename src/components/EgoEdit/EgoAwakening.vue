@@ -1,36 +1,46 @@
 <script lang="ts" setup>
 
 import {EGO} from "@/core/ego.ts";
+import SpiltCol from "@/components/small/SpiltCol.vue";
 
 const editor = EGO.Editor
 </script>
 
 <template>
   <div class="EA-wrapper">
-    <div class="inf-list">
-      <div>
-        <div class="inf-title">
-          基础信息
+    <SpiltCol>
+      <template v-slot:l>
+        <div class="inf-list">
+        <div>
+          <div class="inf-title">
+            基础信息
+          </div>
+          消耗理智
+          <input v-model="editor.awakening.sp" min="0" type="number">
+          硬币数
+          <input v-model="editor.awakening.coin" min="1" type="number">
+          基础威力
+          <input v-model="editor.awakening.basePower" type="number">
+          变动值
+          <input v-model="editor.awakening.coinPower" type="number">
+          攻击等级修正
+          <input v-model="editor.awakening.ATKLevel" type="number">
+          攻击容量
+          <input v-model="editor.awakening.ATKWeight" type="number">
         </div>
-        消耗理智
-        <input v-model="editor.awakening.sp" min="0" type="number">
-        硬币数
-        <input v-model="editor.awakening.coin" min="1" type="number">
-        基础威力
-        <input v-model="editor.awakening.basePower" type="number">
-        变动值
-        <input v-model="editor.awakening.coinPower" type="number">
-        攻击等级修正
-        <input v-model="editor.awakening.ATKLevel" type="number">
-        攻击容量
-        <input v-model="editor.awakening.ATKWeight" type="number">
-      </div>
-      <div>
-        <div class="inf-title">
-          效果
         </div>
-      </div>
-    </div>
+      </template>
+      <template v-slot:r>
+        <div class="inf-list">
+          <div>
+            <div class="inf-title">
+              效果
+            </div>
+          </div>
+        </div>
+      </template>
+    </SpiltCol>
+
   </div>
 </template>
 

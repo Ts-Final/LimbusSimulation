@@ -18,7 +18,7 @@ const riskLevel = props.riskLevel ?? ego.RiskLevel
     <div>
       <RiskImg :risk-level="riskLevel" style="height: 30px;"/>
     </div>
-    <div>{{ ego.name }}</div>
+    <div>{{ego.source}}-{{ ego.name }}</div>
     <div class="ego-card-sp/power">
       <div>
         <img alt="理智消耗：" src="../../assets/icons/sp.png">

@@ -1,6 +1,7 @@
 import { RiskLevel } from "@/core/constants.ts";
 import { ref, watch } from "vue";
-import { assign, isNumberLike, sorter } from "@/core/utils.ts";
+import { isNumberLike, sorter } from "@/core/utils.ts";
+import {assign} from "@/core/assign.ts";
 
 export interface Identity {
   character: string
@@ -51,7 +52,7 @@ function template(): Identity {
       slash: 1,
     },
     stagger: "0.75 0.4 0.2",
-    skill: [[0, 0]],
+    skill: [[0, 1]],
     ego: {
       ZAYIN: 0,
       TETH: undefined,
@@ -100,11 +101,12 @@ function fix(data: Identity) {
   i.ego.ZAYIN = i.ego.ZAYIN ?? 0
   // @ts-expect-error idk why sometimes here will be a null there.
   i.skill = i.skill.filter(x => !x.includes(null))
+  return i
 }
 
-watch(Editor, (value) => {
+watch(Editor, (v) => {
   // eslint-disable-next-line no-debugger
-  fix(value)
+  const value = fix(v)
   assign(current(), value)
 
   updateHp(value)

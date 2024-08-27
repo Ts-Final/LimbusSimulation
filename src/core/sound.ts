@@ -1,41 +1,54 @@
-import {ref} from "vue";
-import {notify} from "@/core/utils.ts";
-
-const current = ref("")
-const all: any[] = []
-
-
-function generate2(getter: () => HTMLAudioElement, ch: string) {
-  const x = {
-    play() {
-      getter()?.play()
-        .then(() => notify.normal("正在播放：" + ch, 1000))
-      current.value = ch
-    },
-    pause() {
-      getter()?.pause()
-      getter().currentTime = 0
-    },
-    get duration() {
-      return getter().duration
-    },
-    ch
+function play(elementId: string) {
+  return function play() {
+    (document.getElementById(elementId) as HTMLAudioElement)
+      .play()
+      .catch(() => {return })
   }
-  all.push(x)
-  return x
 }
 
-export const Sound = {
-  compass: generate2(() => document.getElementById("sound-compass") as HTMLAudioElement, "Compass"),
-  fly: generate2(() => document.getElementById("sound-fly-wings") as HTMLAudioElement, "Fly, My wings"),
-  between: generate2(() => document.getElementById("sound-between-worlds") as HTMLAudioElement, "两世之间"),
-  vitamins: generate2(() => document.getElementById("sound-vitamins") as HTMLAudioElement, "Vitamins"),
-  inHell: generate2(() => document.getElementById("sound-in-hell") as HTMLAudioElement, "In hell we live"),
-  xiao: generate2(() => document.getElementById("sound-xiao") as HTMLAudioElement, "I am fire"),
-  patches: generate2(() => document.getElementById("sound-patches") as HTMLAudioElement, "斑驳之紫"),
-  current,
-  play() {
-    all.find(x => x.ch == current.value)?.pause()
-    all.filter(x => x.ch != current.value).pop().play()
+export const sound = {
+  char: {
+    hover: {
+      play: play("sound-char-hover"),
+    }
+  },
+  click: {
+    play: play("sound-click")
+  },
+  coin: {
+    success: {
+      play: play("sound-coin")
+    }
+  },
+  ego: {
+    overclock: {
+      charge: {
+        play: play("sound-ego-overclock-charge")
+      },
+      stable: {
+        play: play("sound-ego-overclock-stable")
+      },
+      unstable: {
+        play: play("sound-ego-overclock-unstable")
+      }
+    }
+  },
+  ui: {
+    open: {
+      play: play("sound-ui-open")
+    }
+  },
+  skill: {
+    hover: {
+      play: play("sound-skill-hover")
+    }
+  },
+  tab: {
+    click: {
+      play: play("sound-tab-click")
+    }
+  },
+  snap: {
+    play: play("sound-snap")
   }
 }

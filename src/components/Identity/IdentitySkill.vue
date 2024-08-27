@@ -170,7 +170,8 @@ function EGOResources(data: Identity) {
   flex-wrap: wrap;
   padding: 2px;
   margin: 5px;
-  height: 100%;
+  height: min-content;
+  max-width: 100%;
 }
 
 .IS-equipped {

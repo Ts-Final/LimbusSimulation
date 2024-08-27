@@ -1,5 +1,8 @@
 import {init} from "./extensions.ts"
+import {assign} from "@/core/assign.ts";
+import {Directive} from "vue";
 
+init()
 export const notify = (function () {
   const notifyElement = document.createElement('div')
   notifyElement.classList.add("notify-box")
@@ -107,28 +110,6 @@ export function isNumberLike(str: string) {
   return str.match(/^[0-9]+(\.[0-9]+)?$/g)?.length == 1
 }
 
-export function assign<T, K>(target: T, source: K): T & K {
-  if (typeof target !== "object" || typeof source !== "object") {
-    throw new Error()
-  }
-  if (!source || !target) throw new Error()
-
-  for (const key in source) {
-    const key1 = key as unknown as keyof T
-    if (target[key1] instanceof Array) {
-      // @ts-expect-error
-      target[key1] = source[key as keyof K]
-    } else if (typeof target[key1] === "object") {
-      assign(target[key1], source[key])
-    } else {
-      // @ts-expect-error
-      target[key1] = source[key]
-    }
-  }
-  // @ts-expect-error
-  return target
-}
-
 export const sorter = {
   BigToSmall(a: number, b: number) {
     return b - a
@@ -188,7 +169,7 @@ export function deepmerge<T, K>(v1: T, v2: K): T & K {
 
 // Randomly arrange an array.
 // see https://zh.javascript.info/task/shuffle
-export function shuffle(array: any[]) {
+export function shuffle<T>(array: T[]):T[] {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1)); // 从 0 到 i 的随机索引
 
@@ -199,6 +180,7 @@ export function shuffle(array: any[]) {
     // let t = array[i]; array[i] = array[j]; array[j] = t
     [array[i], array[j]] = [array[j], array[i]];
   }
+  return array
 }
 
 /**
@@ -209,5 +191,47 @@ export function randomInteger(min: number, max: number) {
   return Math.floor(Math.random() * length + min)
 }
 
+/**
+ * Return an object that refers a range of number [min,max].
+ * @param min the min
+ * @param max the max
+ * @param init the initial value when started
+ */
+export function cycle(min: number, max: number, init?: number) {
+  return {
+    value: init ?? min,
+    next() {
+      this.value += 1
+      if (this.value > max) this.value = min
+      return this.value
+    },
+    min, max
+  }
+}
 
-init()
+
+export function fromKeys<K, T extends readonly string[]>(keys: T, getter: () => K): Record<T[number], K> {
+  // @ts-ignore Just that. I think tho
+  return Object.fromEntries(keys.map(x => [x, getter()]))
+}
+
+export function toSigned(val: any) {
+  if (isFinite(val))
+    return parseFloat(val) >= 0 ? "+" + val : String(val)
+  return " "
+
+}
+
+export const Directive_Draggable: Directive<HTMLElement, (e: DragEvent) => any> = {
+  mounted(el, binding) {
+    el.draggable = true
+    el.ondragstart = binding.value
+  },
+}
+
+export const Directive_Drop: Directive<HTMLElement, (e: DragEvent) => any> = {
+  mounted(el, binding) {
+    el.ondragover = e => e.preventDefault()
+    el.ondrop = binding.value
+  },
+}

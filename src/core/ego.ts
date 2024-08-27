@@ -1,7 +1,8 @@
 import { Affinity, AttackType, RiskLevel } from "@/core/constants.ts";
 import { ref, watch } from "vue";
-import { assign, notify } from "@/core/utils.ts";
+import { notify } from "@/core/utils.ts";
 import { Identity } from "@/core/identity.ts";
+import {assign} from "@/core/assign.ts";
 
 export interface Ego {
   name: string

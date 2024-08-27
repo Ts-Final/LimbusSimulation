@@ -1,7 +1,7 @@
 import {Affinity, AttackType} from "@/core/constants.ts";
 import {ref, watch} from "vue";
-import {assign} from "@/core/utils.ts";
 import {Identity} from "@/core/identity.ts";
+import {assign} from "@/core/assign.ts";
 
 export interface Skill {
   name: string

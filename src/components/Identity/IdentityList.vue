@@ -28,7 +28,7 @@ const display = ref(true)
 
 function fuck() {
   display.value = false
-  setTimeout(() => display.value = true, 10)
+  setTimeout(() => display.value = true, 0)
 }
 
 function toDragStart(index: string) {
@@ -43,6 +43,7 @@ function toDragStart(index: string) {
     <div class="IL-cards">
       <IdentityCard v-for="[index, identity] in Object.entries(Identity.storage)" @click="viewing = index.num()"
                     :chosen="computed(() => viewing === index.num())"
+                    @contextmenu.prevent="Identity.del(index.num());fuck()"
                     @dragstart="e => toDragStart(index)(e)" :key="index"
                     :identity="identity"/>
     </div>
@@ -51,8 +52,13 @@ function toDragStart(index: string) {
         操作<br>
         将人格卡拖动至此
       </div>
+      <div>
+        点击人格卡以编辑
+      </div>
       <div @drop="deleteUnit" @dragover.prevent>
         删除
+        <br>
+        或右键人格卡
       </div>
       <div @drop="copyUnit" @dragover.prevent>
         复制
@@ -82,6 +88,7 @@ function toDragStart(index: string) {
   overflow-y: auto;
   padding: 5px;
   height: min-content;
+  max-height: 100%;
 }
 
 .IL-button {

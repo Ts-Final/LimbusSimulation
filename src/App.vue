@@ -5,24 +5,25 @@ import SideBar from "@/components/SideBar.vue";
 import EgoTab from "@/components/EgoEdit/EgoTab.vue";
 import SkillTab from "@/components/skill/SkillTab.vue";
 import StartUpTab from "@/components/StartUp/StartUpTab.vue";
+import SoundFile from "@/components/Others/SoundFile.vue";
+import Sounds from "@/components/Others/Music.vue";
+import StageTab from "@/components/Stage/StageTab.vue";
 </script>
 
 <template>
   <SideBar/>
-  <IdentityTab v-if="CurrentTab == 'identity'"/>
-  <EgoTab v-else-if="CurrentTab == 'ego'"/>
-  <SkillTab v-else-if="CurrentTab == 'skill'"/>
-  <StartUpTab v-else/>
+  <KeepAlive>
+    <Transition>
+      <IdentityTab v-if="CurrentTab == 'identity'"/>
+      <EgoTab v-else-if="CurrentTab == 'ego'"/>
+      <SkillTab v-else-if="CurrentTab == 'skill'"/>
+      <Sounds v-else-if="CurrentTab == 'sound'"/>
+      <StageTab v-else-if="CurrentTab == 'stage'"/>
+      <StartUpTab v-else/>
+    </Transition>
+  </KeepAlive>
   <div id="notify-container"></div>
-  <div>
-    <audio id="sound-compass" src="src/assets/music/compass.mp3"/>
-    <audio id="sound-fly-wings" src="src/assets/music/fly.ogg"/>
-    <audio id="sound-between-worlds" src="src/assets/music/BetweenTwoWorlds.ogg"/>
-    <audio id="sound-vitamins" src="src/assets/music/Vitamins.mp3"/>
-    <audio id="sound-in-hell" src="src/assets/music/InHellWeLive.ogg"/>
-    <audio id="sound-xiao" src="src/assets/music/Children%20of%20the%20city.mp3"/>
-    <audio id="sound-patches" src="src/assets/music/Patches.mp3"/>
-  </div>
+  <SoundFile/>
 </template>
 
 <style scoped>
@@ -31,5 +32,15 @@ import StartUpTab from "@/components/StartUp/StartUpTab.vue";
   right: 5px;
   top: 5px;
   z-index: 114514;
+  align-items: end;
+}
+.v-enter-from,
+.v-leave-to{
+  opacity: 0;
+  transform: translateX(25%);
+}
+.v-enter-active,
+.v-leave-active{
+  transition: all 0.2s linear;
 }
 </style>

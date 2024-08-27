@@ -32,6 +32,7 @@ function toDrop(rl: RiskLevel) {
       } else {
         editor.value.ego[rl] = index
       }
+      fuck()
     }
   }
 }
@@ -55,8 +56,8 @@ function fuck() {
 </script>
 
 <template>
-  <div class="inf-list" v-if="display">
-    <div class="IE-equipped">
+  <div class="inf-list" >
+    <div class="IE-equipped" v-if="display">
       <div class="inf-title">
         装备中
       </div>
@@ -69,7 +70,7 @@ function fuck() {
         <div v-else>未装备</div>
       </div>
     </div>
-    <div class="IE-cards">
+    <div class="IE-cards" v-if="display">
       <div class="inf-title">
         EGO列表
       </div>

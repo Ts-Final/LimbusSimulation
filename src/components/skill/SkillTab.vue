@@ -3,6 +3,7 @@
 import {ref} from "vue";
 import SkillBase from "@/components/skill/SkillBase.vue";
 import SkillList from "@/components/skill/SkillList.vue";
+import {sound} from "@/core/sound.ts";
 
 const viewing = ref("list")
 
@@ -15,6 +16,7 @@ function rotate() {
   }
   if (confirm("你也要起舞吗？")) {
     rotating.value = true
+    sound.snap.play()
   }
 }
 </script>
@@ -50,6 +52,7 @@ function rotate() {
 }
 .ST-rotate {
   animation: a-ST-rotating 1s linear infinite forwards;
+  user-select: none;
 }
 
 @keyframes a-ST-rotating {
@@ -77,7 +80,7 @@ function rotate() {
   flex-direction: column;
   z-index: 2;
   padding-top: 75px;
-  width: 70%;
+  flex-grow: 1;
 }
 
 .ST-chooser {

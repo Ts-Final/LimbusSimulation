@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Identity } from "@/core/identity.ts";
 import AtkTypeImg from "@/components/small/atkTypeImg.vue";
-import { resToClass } from "@/core/utils";
+import {resToClass, toSigned} from "@/core/utils";
 
 const editor = Identity.editor
 </script>
@@ -32,7 +32,7 @@ const editor = Identity.editor
         <input v-model.number="editor.hp.modify" type="text">
         体力-预览：
         <span>
-          {{ editor.hp.base }}{{ editor.hp.modify.toSigned() }}*{{ editor.level }} =
+          {{ editor.hp.base }}{{ toSigned(editor.hp.modify) }}*{{ editor.level }} =
           {{ Identity.refs.hp.value }}
         </span>
         防御-基础值：
@@ -60,7 +60,10 @@ const editor = Identity.editor
           <AtkTypeImg atk-type="slash" />
         </label>
         <input type="text" v-model.number="editor.resistance.slash" />
-
+        混乱阈值：
+        <input v-model="editor.stagger">
+        混乱阈值预览：
+        <span>{{Identity.refs.stagger.value}}</span>
       </div>
     </div>
     <div class="IB-col">

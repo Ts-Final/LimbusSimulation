@@ -10,8 +10,8 @@ const affinity = defineModel<Affinity>()
     <option value="lust">色欲</option>
     <option value="gluttony">暴食</option>
     <option value="sloth">怠惰</option>
-    <option value="gloom">忧郁！</option>
-    <option value="pride">傲慢！</option>
+    <option value="gloom">忧郁</option>
+    <option value="pride">傲慢</option>
     <option value="envy">嫉妒！</option>
   </select>
 </template>
@@ -23,6 +23,7 @@ select {
   font-size: 1rem;
   border-radius: 0;
   background-color: transparent;
+  max-width: 6rem;
 }
 
 option {

@@ -1,35 +1,39 @@
 <script lang="ts" setup>
 import {Skill} from "@/core/skill.ts";
-import {range} from "@/core/utils.ts";
 import AtkTypeImg from "@/components/small/atkTypeImg.vue";
 import {Ref} from "vue";
+import {sound} from "@/core/sound.ts";
 
-const props = defineProps<{ skill: Skill, chosen?: Ref<boolean> }>()
-const skill = props.skill
+const props = defineProps<{ skill: Skill | number, chosen?: Ref<boolean> }>()
+const skill = typeof props.skill === "number" ? Skill.index(props.skill) : props.skill
 const chosen = props.chosen ?? false
 
 </script>
 
 <template>
   <div :class="skill.affinity + (chosen ? ' skill-card-chosen' :'')"
+       @mouseenter="sound.skill.hover.play"
        class="skill-card">
     <div style="margin: 4px">{{ skill.name }}</div>
-    <div class="skill-card-type">
-      <AtkTypeImg v-for="_ in range(skill.coin)" :atk-type="skill.ATKType"/>
-    </div>
     <div>
-      {{ skill.basePower }}{{ skill.coinPower.toSigned() }}&times;{{ skill.coin }}
+      <div>
+        <AtkTypeImg :atk-type="skill.ATKType"/>
+        {{ skill.basePower }}{{ skill.coinPower.toSigned() }}&times;{{ skill.coin }}
+      </div>
+      <div>
+        <img src="../../assets/icons/atk.png" style="max-height: 25px" alt="攻等：">
+        {{ skill.ATKLevel.toSigned() }}
+      </div>
     </div>
-    <slot>
-
-    </slot>
+    <slot></slot>
   </div>
 
 </template>
 
 <style scoped>
 .skill-card {
-  width: 200px;
+  max-width: 200px;
+  min-width: 150px;
   height: min-content;
   display: flex;
   flex-direction: column;
@@ -37,10 +41,13 @@ const chosen = props.chosen ?? false
   align-items: center;
   margin: 5px;
   cursor: pointer;
-
-
+  direction: ltr;
   word-break: break-all;
   line-break: anywhere;
+
+  * {
+    user-select: none;
+  }
 }
 
 .skill-card-type {

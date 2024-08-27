@@ -30,7 +30,7 @@ const credits = ref(false)
             </div>
             <div class="answer">
               首先：你能点开这个QA并看到这句话我已经很庆幸了，
-              <span class="black-out">（至少你·不·赛·盲。）</span>
+              <span class="black-out">然而我更希望你能看懂我写的这些意义不明的东西</span>
               <br>
               简单为你介绍一下现在已经写好的功能：<br>
               首先可以自定义一些角色的各种乱七八糟的数值。<br>
@@ -155,17 +155,16 @@ const credits = ref(false)
   height: 70%;
   border: 2px #7cdcf4 solid;
   background-image: linear-gradient(60deg, #0d1418 0%, #11161b 100%);
-  animation: a-SQA-container 1.2s ease-in-out normal;
+  animation: a-SQA-container 0.6s ease-in-out normal;
 }
 
 @keyframes a-SQA-container {
   0% {
-    transform: translateY(-100vh);
-  }
-  25% {
-    transform: translateY(-100vh);
+    opacity: 0;
+    transform: translateY(-50vh);
   }
   100% {
+    opacity: 1;
     transform: translateY(0);
   }
 }
